@@ -1,7 +1,48 @@
 import { ReactNode, useEffect, useRef, MouseEvent } from 'react';
 import { ReactComponent as CrossSVG } from 'assets/images/icons/cross.svg';
 import { Button } from '@gear-js/ui';
+import { motion, Variants } from 'framer-motion';
 import styles from './Modal.module.scss';
+
+export const variantsOverlay: Variants = {
+  enter: { opacity: 0 },
+  center: {
+    opacity: 1,
+    transition: {
+      ease: 'easeOut',
+      duration: 0.3,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      ease: 'easeIn',
+      duration: 0.2,
+    },
+  },
+};
+export const variantsPanel: Variants = {
+  enter: {
+    opacity: 0,
+    scale: 0.75,
+  },
+  center: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      ease: 'easeOut',
+      duration: 0.3,
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.75,
+    transition: {
+      ease: 'easeIn',
+      duration: 0.2,
+    },
+  },
+};
 
 type Props = {
   heading: string;
@@ -9,7 +50,7 @@ type Props = {
   onClose: () => void;
 };
 
-function Modal({ heading, children, onClose }: Props) {
+export function Modal({ heading, children, onClose }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
 
   const disableScroll = () => document.body.classList.add('modal-open');
@@ -39,9 +80,15 @@ function Modal({ heading, children, onClose }: Props) {
   };
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-    <dialog ref={ref} onClick={handleClick} className={styles.modal}>
-      <div className={styles.wrapper}>
+    <motion.dialog
+      initial="enter"
+      animate="center"
+      exit="exit"
+      variants={variantsOverlay}
+      ref={ref}
+      onClick={handleClick}
+      className={styles.modal}>
+      <motion.div initial="enter" animate="center" exit="exit" variants={variantsPanel} className={styles.wrapper}>
         <header className={styles.header}>
           <h2 className={styles.header__title}>{heading}</h2>
 
@@ -49,9 +96,7 @@ function Modal({ heading, children, onClose }: Props) {
         </header>
 
         {children}
-      </div>
-    </dialog>
+      </motion.div>
+    </motion.dialog>
   );
 }
-
-export { Modal };

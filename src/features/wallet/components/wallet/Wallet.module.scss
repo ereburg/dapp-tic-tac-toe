@@ -3,11 +3,10 @@
 
 .button {
   @include gap(8px, right);
-  margin-left: auto;
   display: inline-flex;
   align-items: center;
   padding: 11px 32px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 24px;
   letter-spacing: 0.03em;

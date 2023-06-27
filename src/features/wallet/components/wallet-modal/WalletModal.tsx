@@ -39,7 +39,7 @@ function WalletModal({ onClose }: Props) {
             <WalletItem icon={SVG} name={name} />
 
             <span className={styles.status}>
-              <span className={styles.statusTedxt}>{status}</span>
+              <span className={styles.statusText}>{status}</span>
 
               {isEnabled && <span className={styles.statusAccounts}>{accountsStatus}</span>}
             </span>
@@ -101,7 +101,7 @@ function WalletModal({ onClose }: Props) {
           {account && (
             <Button
               icon={ExitSVG}
-              text="Logout"
+              text="Exit"
               color="transparent"
               className={styles.logoutButton}
               onClick={handleLogoutButtonClick}
