@@ -1,0 +1,106 @@
+@use 'utils' as *;
+
+.list {
+  @include gap(15px);
+
+  .walletButton {
+    width: 100%;
+    min-height: 48px;
+    padding-right: 20px;
+    padding-left: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: #d4d4d4;
+    }
+  }
+}
+
+.status {
+  display: block;
+  text-align: right;
+
+  &Text {
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 12px;
+    color: #a2a2a2;
+  }
+
+  &Accounts {
+    display: block;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 10px;
+    letter-spacing: 0.02em;
+    color: #02f8bf;
+  }
+}
+
+.account {
+  @include gap(10px, right);
+  display: flex;
+  align-items: center;
+
+  &Button {
+    @include gap(12px, right);
+    width: 100%;
+    padding: 15px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    color: #000;
+    background-color: #fff;
+    transition: all 0.3s;
+
+    &.active {
+      background-color: #56ffd8;
+      cursor: not-allowed;
+    }
+
+    &:hover {
+      background-color: #d4d4d4;
+    }
+  }
+}
+
+.footer {
+  margin-top: 22px;
+  display: flex;
+  justify-content: space-between;
+
+  .walletButton {
+    @include gap(8px, right);
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    transition: all 0.3s;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+.changeText {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #00b387;
+}
+
+.logoutButton {
+  color: #000;
+
+  svg {
+    @include svgColor(#000);
+  }
+}
