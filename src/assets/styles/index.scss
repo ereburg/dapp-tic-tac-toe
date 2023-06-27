@@ -1,0 +1,63 @@
+@use '@gear-js/ui/resets';
+
+@font-face {
+  font-family: 'Anuphan', sans-serif;
+  font-weight: 300;
+  src: url('../fonts/anuphan-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Anuphan', sans-serif;
+  font-weight: 400;
+  src: url('../fonts/anuphan-500.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Anuphan', sans-serif;
+  font-weight: 500;
+  src: url('../fonts/anuphan-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Anuphan', sans-serif;
+  font-weight: 600;
+  src: url('../fonts/anuphan-700.woff2') format('woff2');
+}
+
+*,
+::after,
+::before {
+  border: none;
+}
+
+button {
+  cursor: pointer;
+
+  &:disabled {
+    pointer-events: none;
+  }
+}
+
+body {
+  font-family: 'Anuphan', sans-serif;
+  color: #000;
+  background-color: #fff;
+  background-position: top;
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  &.modal-open {
+    overflow-y: hidden;
+  }
+
+  &.welcome {
+    //background-image: url(/assets/images/bg.png);
+    background-color: red;
+  }
+}
+
+.container {
+  max-width: 1320px;
+  padding: 0 20px;
+  margin: 0 auto;
+}

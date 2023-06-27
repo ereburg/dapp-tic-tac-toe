@@ -1,0 +1,23 @@
+@use 'assets/styles';
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: content-box;
+}
+
+#alert-root {
+  color: #fff;
+
+  > div > div > div {
+    border: none;
+    border-radius: 0;
+  }
+}
+
+main {
+  flex: 1;
+  padding: 50px 0 70px;
+  position: relative; // for loaders
+}
