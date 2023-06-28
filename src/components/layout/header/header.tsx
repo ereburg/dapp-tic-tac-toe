@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Logo } from './logo';
-import styles from './Header.module.scss';
+import styles from './header.module.scss';
 import { Wallet } from '../../../features/wallet';
 import { Navigation } from './navigation';
 

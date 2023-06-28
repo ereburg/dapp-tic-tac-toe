@@ -1,0 +1,12 @@
+.cell {
+  position: relative;
+  padding: 19px;
+  background-color: #f6f6f6;
+  aspect-ratio: 1/1;
+
+  //&::before {
+  //  content: '';
+  //  display: block;
+  //  padding-top: 100%;
+  //}
+}

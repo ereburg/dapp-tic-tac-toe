@@ -1,5 +1,5 @@
-function Home() {
-  return <div>Home page</div>;
-}
+import { TicTacToe } from 'features/tic-tac-toe';
 
-export { Home };
+export function Home() {
+  return <TicTacToe />;
+}
