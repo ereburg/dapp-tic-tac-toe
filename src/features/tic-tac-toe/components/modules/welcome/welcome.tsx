@@ -1,8 +1,8 @@
 import WelcomePNG from 'features/tic-tac-toe/assets/images/welcome-bg.png';
 import WelcomeWebp from 'features/tic-tac-toe/assets/images/welcome-bg.webp';
-import { ColumnLeft, ColumnRight, ColumnsContainer } from '../columns';
+import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../common/columns';
 import styles from './welcome.module.scss';
-import { GradientTitle, HelpDescription } from '../typography';
+import { GradientTitle, HelpDescription } from '../../common/typography';
 
 type WelcomeProps = BaseComponentProps & {};
 

@@ -1,5 +1,5 @@
-import { Welcome } from './components/welcome';
-import { Game } from './components/game';
+import { Welcome } from './components/modules/welcome';
+import { Game } from './components/modules/game';
 
 type TicTacToeProps = BaseComponentProps & {};
 

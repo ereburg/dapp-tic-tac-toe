@@ -1,7 +1,8 @@
-import { ColumnLeft, ColumnRight, ColumnsContainer } from '../columns';
-import { GradientTitle, HelpDescription } from '../typography';
+import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../common/columns';
+import { GradientTitle, HelpDescription } from '../../common/typography';
 import styles from './game.module.scss';
 import { GameField } from '../game-field';
+import { GameSelectedFigure } from '../game-selected-figure';
 
 type GameProps = BaseComponentProps & {};
 
@@ -14,8 +15,12 @@ export function Game({ children }: GameProps) {
           <p>Players take turns making their moves. Make sure to complete your turn before the timer runs out.</p>
         </HelpDescription>
       </ColumnLeft>
-      <ColumnRight>
+      <ColumnRight className={styles.field}>
         <GameField />
+
+        <div className={styles.choose}>
+          <GameSelectedFigure />
+        </div>
       </ColumnRight>
     </ColumnsContainer>
   );
