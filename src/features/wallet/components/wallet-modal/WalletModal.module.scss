@@ -5,18 +5,11 @@
 
   .walletButton {
     width: 100%;
-    min-height: 48px;
     padding-right: 20px;
     padding-left: 24px;
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    transition: all 0.3s;
 
     &:hover {
-      background-color: #d4d4d4;
-
       & .statusAccounts {
         color: #00b387;
       }
@@ -53,27 +46,19 @@
   align-items: center;
 
   &Button {
-    @include gap(12px, right);
-    display: flex;
+    @include flex-gap(12px);
     justify-content: center;
-    align-items: center;
     width: 100%;
-    padding: 15px 16px;
+    padding-right: 24px;
+    padding-left: 24px;
     font-weight: 600;
     font-size: 16px;
-    line-height: 18px;
-    color: #000;
-    background-color: #fff;
-    transition: all 0.3s;
-    border-radius: 2px;
 
-    &.active {
-      background-color: #56ffd8;
-      cursor: not-allowed;
-    }
-
-    &:hover {
-      background-color: #d4d4d4;
+    span {
+      display: block;
+      max-width: 25ch;
+      white-space: nowrap;
+      @include textOverflow;
     }
   }
 }

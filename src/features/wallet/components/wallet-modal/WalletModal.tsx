@@ -7,6 +7,7 @@ import { copyToClipboard } from 'utils';
 import { Modal } from 'components';
 import { ReactComponent as EditSVG } from 'assets/images/icons/edit.svg';
 import { ReactComponent as CopySVG } from 'assets/images/icons/copy.svg';
+import { Button as VaraButton } from 'components/ui/button';
 import { ExitSVG } from '../../assets';
 import { WALLETS } from '../../consts';
 import { useWallet } from '../../hooks';
@@ -35,7 +36,7 @@ function WalletModal({ onClose }: Props) {
 
       return (
         <li key={id}>
-          <button type="button" className={styles.walletButton} onClick={onClick} disabled={!isEnabled}>
+          <VaraButton variant="white" className={styles.walletButton} onClick={onClick} disabled={!isEnabled}>
             <WalletItem icon={SVG} name={name} />
 
             <span className={styles.status}>
@@ -43,7 +44,7 @@ function WalletModal({ onClose }: Props) {
 
               {isEnabled && <span className={styles.statusAccounts}>{accountsStatus}</span>}
             </span>
-          </button>
+          </VaraButton>
         </li>
       );
     });
@@ -53,7 +54,6 @@ function WalletModal({ onClose }: Props) {
       const { address, meta } = _account;
 
       const isActive = address === account?.address;
-      const buttonClassName = clsx(styles.accountButton, isActive && styles.active);
 
       const handleClick = () => {
         login(_account);
@@ -70,10 +70,14 @@ function WalletModal({ onClose }: Props) {
 
       return (
         <li key={address} className={styles.account}>
-          <button type="button" className={buttonClassName} onClick={handleClick} disabled={isActive}>
+          <VaraButton
+            variant={isActive ? 'primary' : 'white'}
+            className={styles.accountButton}
+            onClick={handleClick}
+            disabled={isActive}>
             <Identicon value={address} size={20} theme="polkadot" />
             <span>{meta.name}</span>
-          </button>
+          </VaraButton>
 
           <Button icon={CopySVG} color="transparent" onClick={handleCopyClick} />
         </li>

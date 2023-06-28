@@ -1,5 +1,6 @@
 import WelcomePNG from 'features/tic-tac-toe/assets/images/welcome-bg.png';
 import WelcomeWebp from 'features/tic-tac-toe/assets/images/welcome-bg.webp';
+import { Button } from 'components/ui/button';
 import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../common/columns';
 import styles from './welcome.module.scss';
 import { GradientTitle, HelpDescription } from '../../common/typography';
@@ -18,9 +19,7 @@ export function Welcome() {
           </p>
         </HelpDescription>
         <div>
-          <button type="button" className="btn">
-            Start the game
-          </button>
+          <Button>Start the game</Button>
         </div>
       </ColumnLeft>
       <ColumnRight>

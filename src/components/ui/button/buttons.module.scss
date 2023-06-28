@@ -1,0 +1,126 @@
+@use '@gear-js/ui/mixins' as *;
+@use 'utils' as *;
+
+.btn {
+  --btn-bg-color: #64ffdb;
+  --btn-border-color: var(--btn-bg-color);
+  --btn-text-color: #000;
+
+  display: inline-flex;
+  align-items: center;
+  color: var(--btn-text-color);
+  font-weight: 700;
+  letter-spacing: 0.54px;
+  border-radius: 2px;
+  border: 2px solid var(--btn-border-color);
+  background-color: var(--btn-bg-color);
+  transition-property: background-color, border-color, color;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
+  @include flex-gap(10px);
+
+  &[disabled] {
+    pointer-events: auto;
+    cursor: not-allowed;
+  }
+}
+
+.primary {
+  --btn-bg-color: #64ffdb;
+  --btn-border-color: var(--btn-bg-color);
+  --btn-text-color: #000;
+
+  &:not([disabled]) {
+    &:hover,
+    &:focus-visible {
+      --btn-bg-color: #91fcdd;
+    }
+
+    &:active {
+      --btn-bg-color: #0ed3a3;
+    }
+  }
+}
+
+.black {
+  @extend .btn;
+  --btn-bg-color: #000;
+  --btn-text-color: #fff;
+
+  &:not([disabled]) {
+    &:hover,
+    &:focus-visible {
+      --btn-bg-color: #404040;
+    }
+
+    &:active {
+      --btn-bg-color: #262626;
+    }
+  }
+}
+
+.white {
+  @extend .btn;
+  --btn-bg-color: #fff;
+  --btn-text-color: #000;
+
+  &:not([disabled]) {
+    &:hover,
+    &:focus-visible {
+      --btn-bg-color: #d4d4d4;
+    }
+
+    &:active {
+      --btn-bg-color: #d4d4d4;
+    }
+  }
+}
+
+.outline {
+  @extend .btn;
+  --btn-bg-color: transparent;
+  --btn-border-color: #000;
+  --btn-text-color: #000;
+
+  &:not([disabled]) {
+    &:hover,
+    &:focus-visible {
+      --btn-bg-color: #000;
+      --btn-text-color: #fff;
+    }
+
+    &:active {
+      --btn-bg-color: #404040;
+      --btn-border-color: var(--btn-bg-color);
+    }
+  }
+}
+
+.text {
+  padding: 0;
+  background-color: unset;
+  border-color: unset;
+}
+
+.md {
+  padding: 10px 32px;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.loader {
+  animation: spin 1s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.loading {
+  opacity: 70%;
+}

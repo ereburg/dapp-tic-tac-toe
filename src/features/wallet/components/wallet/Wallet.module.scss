@@ -2,41 +2,13 @@
 @use 'utils' as *;
 
 .button {
-  @include gap(8px, right);
-  display: inline-flex;
-  align-items: center;
-  padding: 11px 32px;
   font-size: 16px;
-  font-weight: 700;
-  line-height: 24px;
-  letter-spacing: 0.03em;
   text-transform: capitalize;
-  transition-property: color, background-color, border;
-  transition-timing-function: ease;
-  transition-duration: 300ms;
-  background-color: unset;
-  border-radius: 2px;
 
-  &.active {
-    background-color: #000;
-    color: #fff;
-
-    &:hover {
-      background-color: #404040;
-    }
-
-    &:active {
-      background-color: #262626;
-    }
-  }
-
-  &.inactive {
-    color: #000;
-    border: 2px solid #000;
-
-    &:hover {
-      background-color: #000;
-      color: white;
-    }
+  span {
+    display: block;
+    max-width: 15ch;
+    white-space: nowrap;
+    @include textOverflow;
   }
 }
