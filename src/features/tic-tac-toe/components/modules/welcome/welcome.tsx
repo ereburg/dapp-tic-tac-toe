@@ -1,13 +1,16 @@
 import WelcomePNG from 'features/tic-tac-toe/assets/images/welcome-bg.png';
 import WelcomeWebp from 'features/tic-tac-toe/assets/images/welcome-bg.webp';
 import { Button } from 'components/ui/button';
+import { useAccount } from '@gear-js/react-hooks';
 import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../common/columns';
 import styles from './welcome.module.scss';
 import { GradientTitle, HelpDescription } from '../../common/typography';
+import { Wallet } from '../../../../wallet';
 
 type WelcomeProps = BaseComponentProps & {};
 
 export function Welcome() {
+  const { account } = useAccount();
   return (
     <ColumnsContainer>
       <ColumnLeft>
@@ -18,9 +21,7 @@ export function Welcome() {
             to win PPV.
           </p>
         </HelpDescription>
-        <div>
-          <Button>Start the game</Button>
-        </div>
+        <div>{account ? <Button>Start the game</Button> : <Wallet />}</div>
       </ColumnLeft>
       <ColumnRight>
         <div className={styles.image}>
