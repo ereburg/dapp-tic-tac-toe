@@ -1,5 +1,5 @@
 @use '@gear-js/ui/mixins' as *;
-@use 'utils' as *;
+@use '@/assets/styles/utils' as *;
 
 .btn {
   --btn-bg-color: #64ffdb;

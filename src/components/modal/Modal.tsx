@@ -1,8 +1,8 @@
-import { ReactNode, useEffect, useRef, MouseEvent } from 'react';
-import { ReactComponent as CrossSVG } from 'assets/images/icons/cross.svg';
-import { Button } from '@gear-js/ui';
-import { motion, Variants } from 'framer-motion';
-import styles from './Modal.module.scss';
+import { ReactNode, useEffect, useRef, MouseEvent } from 'react'
+import { ReactComponent as CrossSVG } from '@/assets/images/icons/cross.svg'
+import { Button } from '@gear-js/ui'
+import { motion, Variants } from 'framer-motion'
+import styles from './Modal.module.scss'
 
 export const variantsOverlay: Variants = {
   enter: { opacity: 0 },
@@ -20,7 +20,7 @@ export const variantsOverlay: Variants = {
       duration: 0.2,
     },
   },
-};
+}
 export const variantsPanel: Variants = {
   enter: {
     opacity: 0,
@@ -42,42 +42,42 @@ export const variantsPanel: Variants = {
       duration: 0.2,
     },
   },
-};
+}
 
 type Props = {
-  heading: string;
-  children: ReactNode;
-  onClose: () => void;
-};
+  heading: string
+  children: ReactNode
+  onClose: () => void
+}
 
 export function Modal({ heading, children, onClose }: Props) {
-  const ref = useRef<HTMLDialogElement>(null);
+  const ref = useRef<HTMLDialogElement>(null)
 
-  const disableScroll = () => document.body.classList.add('modal-open');
-  const enableScroll = () => document.body.classList.remove('modal-open');
+  const disableScroll = () => document.body.classList.add('modal-open')
+  const enableScroll = () => document.body.classList.remove('modal-open')
 
   const open = () => {
-    ref.current?.showModal();
-    disableScroll();
-  };
+    ref.current?.showModal()
+    disableScroll()
+  }
 
   const close = () => {
-    ref.current?.close();
-    enableScroll();
-  };
+    ref.current?.close()
+    enableScroll()
+  }
 
   useEffect(() => {
-    open();
+    open()
 
-    return () => close();
+    return () => close()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   const handleClick = ({ target }: MouseEvent) => {
-    const isBackdropClick = target === ref.current;
+    const isBackdropClick = target === ref.current
 
-    if (isBackdropClick) onClose();
-  };
+    if (isBackdropClick) onClose()
+  }
 
   return (
     <motion.dialog
@@ -87,8 +87,15 @@ export function Modal({ heading, children, onClose }: Props) {
       variants={variantsOverlay}
       ref={ref}
       onClick={handleClick}
-      className={styles.modal}>
-      <motion.div initial="enter" animate="center" exit="exit" variants={variantsPanel} className={styles.wrapper}>
+      className={styles.modal}
+    >
+      <motion.div
+        initial="enter"
+        animate="center"
+        exit="exit"
+        variants={variantsPanel}
+        className={styles.wrapper}
+      >
         <header className={styles.header}>
           <h2 className={styles.header__title}>{heading}</h2>
 
@@ -98,5 +105,5 @@ export function Modal({ heading, children, onClose }: Props) {
         {children}
       </motion.div>
     </motion.dialog>
-  );
+  )
 }

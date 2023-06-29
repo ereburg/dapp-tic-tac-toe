@@ -1,26 +1,38 @@
-import { useState } from 'react';
-import { LOCAL_STORAGE } from 'consts';
-import { useAccount } from '@gear-js/react-hooks';
-import { WALLET } from './consts';
-import { WalletId } from './types';
+import { useState } from 'react'
+import { LOCAL_STORAGE } from '@/app/consts'
+import { useAccount } from '@gear-js/react-hooks'
+import { WALLET } from './consts'
+import { WalletId } from './types'
 
 function useWallet() {
-  const { accounts } = useAccount();
+  const { accounts } = useAccount()
 
-  const [walletId, setWalletId] = useState<WalletId | undefined>(localStorage[LOCAL_STORAGE.WALLET]);
+  const [walletId, setWalletId] = useState<WalletId | undefined>(
+    localStorage[LOCAL_STORAGE.WALLET]
+  )
 
-  const resetWalletId = () => setWalletId(undefined);
+  const resetWalletId = () => setWalletId(undefined)
 
-  const getWalletAccounts = (id: WalletId) => accounts.filter(({ meta }) => meta.source === id);
+  const getWalletAccounts = (id: WalletId) =>
+    accounts.filter(({ meta }) => meta.source === id)
 
-  const saveWallet = () => walletId && localStorage.setItem(LOCAL_STORAGE.WALLET, walletId);
+  const saveWallet = () =>
+    walletId && localStorage.setItem(LOCAL_STORAGE.WALLET, walletId)
 
-  const removeWallet = () => localStorage.removeItem(LOCAL_STORAGE.WALLET);
+  const removeWallet = () => localStorage.removeItem(LOCAL_STORAGE.WALLET)
 
-  const wallet = walletId && WALLET[walletId];
-  const walletAccounts = walletId && getWalletAccounts(walletId);
+  const wallet = walletId && WALLET[walletId]
+  const walletAccounts = walletId && getWalletAccounts(walletId)
 
-  return { wallet, walletAccounts, setWalletId, resetWalletId, getWalletAccounts, saveWallet, removeWallet };
+  return {
+    wallet,
+    walletAccounts,
+    setWalletId,
+    resetWalletId,
+    getWalletAccounts,
+    saveWallet,
+    removeWallet,
+  }
 }
 
-export { useWallet };
+export { useWallet }

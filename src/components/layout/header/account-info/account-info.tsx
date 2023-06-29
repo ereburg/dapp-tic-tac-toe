@@ -1,10 +1,10 @@
-import { Wallet } from 'features/wallet';
-import clsx from 'clsx';
-import styles from './account-info.module.scss';
-import { AccountGasBalance } from '../account-gas-balance';
-import { AccountTokensBalance } from '../account-tokens-balance';
+import { Wallet } from '@/features/wallet'
+import clsx from 'clsx'
+import styles from './account-info.module.scss'
+import { AccountGasBalance } from '../account-gas-balance'
+import { AccountTokensBalance } from '../account-tokens-balance'
 
-type AccountInfoProps = BaseComponentProps & {};
+type AccountInfoProps = BaseComponentProps & {}
 
 export function AccountInfo({ className }: AccountInfoProps) {
   return (
@@ -13,5 +13,5 @@ export function AccountInfo({ className }: AccountInfoProps) {
       <AccountGasBalance />
       <Wallet />
     </div>
-  );
+  )
 }

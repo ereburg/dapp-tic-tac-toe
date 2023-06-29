@@ -1,72 +1,88 @@
-import Identicon from '@polkadot/react-identicon';
-import { decodeAddress } from '@gear-js/api';
-import { useAccount } from '@gear-js/react-hooks';
-import { Button } from '@gear-js/ui';
-import clsx from 'clsx';
-import { copyToClipboard } from 'utils';
-import { Modal } from 'components';
-import { ReactComponent as EditSVG } from 'assets/images/icons/edit.svg';
-import { ReactComponent as CopySVG } from 'assets/images/icons/copy.svg';
-import { Button as VaraButton } from 'components/ui/button';
-import { ExitSVG } from '../../assets';
-import { WALLETS } from '../../consts';
-import { useWallet } from '../../hooks';
-import { WalletItem } from '../wallet-item';
-import styles from './WalletModal.module.scss';
+import Identicon from '@polkadot/react-identicon'
+import { decodeAddress } from '@gear-js/api'
+import { useAccount, useAlert } from '@gear-js/react-hooks'
+import { Button } from '@gear-js/ui'
+import { ReactComponent as EditSVG } from '@/assets/images/icons/edit.svg'
+import { ReactComponent as CopySVG } from '@/assets/images/icons/copy.svg'
+import { Button as VaraButton } from '@/components/ui/button'
+import { ExitSVG } from '../../assets'
+import { WALLETS } from '../../consts'
+import { useWallet } from '../../hooks'
+import { WalletItem } from '../wallet-item'
+import styles from './WalletModal.module.scss'
+import { copyToClipboard } from '@/app/utils'
+import { Modal } from '@/components'
 
 type Props = {
-  onClose(): void;
-};
+  onClose(): void
+}
 
 function WalletModal({ onClose }: Props) {
-  const { extensions, account, login, logout } = useAccount();
+  const alert = useAlert()
+  const { extensions, account, login, logout } = useAccount()
 
-  const { wallet, walletAccounts, setWalletId, resetWalletId, getWalletAccounts, saveWallet, removeWallet } =
-    useWallet();
+  const {
+    wallet,
+    walletAccounts,
+    setWalletId,
+    resetWalletId,
+    getWalletAccounts,
+    saveWallet,
+    removeWallet,
+  } = useWallet()
 
   const getWallets = () =>
     WALLETS.map(([id, { SVG, name }]) => {
-      const isEnabled = extensions.some((extension) => extension.name === id);
-      const status = isEnabled ? 'Enabled' : 'Disabled';
+      const isEnabled = extensions.some((extension) => extension.name === id)
+      const status = isEnabled ? 'Enabled' : 'Disabled'
 
-      const accountsCount = getWalletAccounts(id).length;
-      const accountsStatus = `${accountsCount} ${accountsCount === 1 ? 'account' : 'accounts'}`;
+      const accountsCount = getWalletAccounts(id).length
+      const accountsStatus = `${accountsCount} ${
+        accountsCount === 1 ? 'account' : 'accounts'
+      }`
 
-      const onClick = () => setWalletId(id);
+      const onClick = () => setWalletId(id)
 
       return (
         <li key={id}>
-          <VaraButton variant="white" className={styles.walletButton} onClick={onClick} disabled={!isEnabled}>
+          <VaraButton
+            variant="white"
+            className={styles.walletButton}
+            onClick={onClick}
+            disabled={!isEnabled}
+          >
             <WalletItem icon={SVG} name={name} />
 
             <span className={styles.status}>
               <span className={styles.statusText}>{status}</span>
 
-              {isEnabled && <span className={styles.statusAccounts}>{accountsStatus}</span>}
+              {isEnabled && (
+                <span className={styles.statusAccounts}>{accountsStatus}</span>
+              )}
             </span>
           </VaraButton>
         </li>
-      );
-    });
+      )
+    })
 
   const getAccounts = () =>
     walletAccounts?.map((_account) => {
-      const { address, meta } = _account;
+      const { address, meta } = _account
 
-      const isActive = address === account?.address;
+      const isActive = address === account?.address
 
       const handleClick = () => {
-        login(_account);
-        saveWallet();
-        onClose();
-      };
+        login(_account)
+        saveWallet()
+        onClose()
+      }
 
       const handleCopyClick = () => {
-        const decodedAddress = decodeAddress(address);
+        const decodedAddress = decodeAddress(address)
 
-        copyToClipboard(decodedAddress);
-        onClose();
-      };
+        copyToClipboard({ key: decodedAddress, alert })
+        onClose()
+      }
 
       return (
         <li key={address} className={styles.account}>
@@ -74,21 +90,26 @@ function WalletModal({ onClose }: Props) {
             variant={isActive ? 'primary' : 'white'}
             className={styles.accountButton}
             onClick={handleClick}
-            disabled={isActive}>
+            disabled={isActive}
+          >
             <Identicon value={address} size={20} theme="polkadot" />
             <span>{meta.name}</span>
           </VaraButton>
 
-          <Button icon={CopySVG} color="transparent" onClick={handleCopyClick} />
+          <Button
+            icon={CopySVG}
+            color="transparent"
+            onClick={handleCopyClick}
+          />
         </li>
-      );
-    });
+      )
+    })
 
   const handleLogoutButtonClick = () => {
-    logout();
-    removeWallet();
-    onClose();
-  };
+    logout()
+    removeWallet()
+    onClose()
+  }
 
   return (
     <Modal heading="Wallet connection" onClose={onClose}>
@@ -96,7 +117,11 @@ function WalletModal({ onClose }: Props) {
 
       {wallet && (
         <footer className={styles.footer}>
-          <button type="button" className={styles.walletButton} onClick={resetWalletId}>
+          <button
+            type="button"
+            className={styles.walletButton}
+            onClick={resetWalletId}
+          >
             <WalletItem icon={wallet.SVG} name={wallet.name} />
 
             <EditSVG />
@@ -114,7 +139,7 @@ function WalletModal({ onClose }: Props) {
         </footer>
       )}
     </Modal>
-  );
+  )
 }
 
-export { WalletModal };
+export { WalletModal }
