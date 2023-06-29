@@ -1,0 +1,35 @@
+@use 'utils' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  @include flex-gap(10px)
+}
+
+.icon {
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.balance {
+
+  > * + * {
+    margin-left: 4px;
+  }
+
+  &Amount {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.1;
+    letter-spacing: -0.4px;
+    text-transform: uppercase;
+  }
+
+  &Unit {
+    font-size: 10px;
+    line-height: 1.4;
+    opacity: 60%;
+  }
+}

@@ -1,0 +1,7 @@
+@use 'utils' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  @include flex-gap(20px)
+}

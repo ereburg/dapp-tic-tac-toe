@@ -6,11 +6,27 @@ import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../common/columns'
 import styles from './welcome.module.scss';
 import { GradientTitle, HelpDescription } from '../../common/typography';
 import { Wallet } from '../../../../wallet';
-
-type WelcomeProps = BaseComponentProps & {};
+import { useGameMessage, usePending } from '../../../hooks';
 
 export function Welcome() {
   const { account } = useAccount();
+  const message = useGameMessage();
+  const { pending, setPending } = usePending();
+
+  const seed = Math.floor(Math.random() * 10 ** 10);
+
+  const onError = () => {
+    setPending(false);
+  };
+  const onSuccess = () => {
+    setPending(false);
+  };
+
+  const onGameStart = () => {
+    setPending(true);
+    message({ StartGame: { seed, name: account?.meta.name } }, { onError, onSuccess });
+  };
+
   return (
     <ColumnsContainer>
       <ColumnLeft>
@@ -21,7 +37,15 @@ export function Welcome() {
             to win PPV.
           </p>
         </HelpDescription>
-        <div>{account ? <Button>Start the game</Button> : <Wallet />}</div>
+        <div>
+          {account ? (
+            <Button onClick={onGameStart} isLoading={pending}>
+              Start the game
+            </Button>
+          ) : (
+            <Wallet />
+          )}
+        </div>
       </ColumnLeft>
       <ColumnRight>
         <div className={styles.image}>

@@ -1,56 +1,48 @@
 import { useProgramMetadata } from 'hooks';
-import { useAlert, useApi } from '@gear-js/react-hooks';
-import { useEffect, useState } from 'react';
-import { MessagesDispatched } from '@gear-js/api';
-import { HexString } from '@polkadot/util/types';
+import { useReadFullState, useSendMessage } from '@gear-js/react-hooks';
+import { useEffect } from 'react';
+import { useAtom } from 'jotai';
 // @ts-ignore
 import metaTxt from './assets/meta/ttt.meta.txt';
 import { ADDRESS } from '../../consts';
+import { IGameState } from './types';
+import { AtomGame, AtomPending } from './consts';
 
-const contractAddress = ADDRESS.CONTRACT;
-export const useGame = () => {
-  const { api, isApiReady } = useApi();
-  const alert = useAlert();
-  const [gameState, setGameState] = useState<any>();
+const programId = ADDRESS.CONTRACT;
 
-  console.log({ gameState });
+function useReadGameState<T>() {
+  const metadata = useProgramMetadata(metaTxt);
+  return useReadFullState<T>(programId, metadata);
+}
 
-  const masterMetadata = useProgramMetadata(metaTxt);
+export function useGame() {
+  const [gameState, setGameState] = useAtom(AtomGame);
+  return { gameState, setGameState };
+}
 
-  const readMasterContractState = () => {
-    if (!isApiReady || !contractAddress || !masterMetadata) return;
-
-    const programId = contractAddress;
-
-    api.programState
-      .read({ programId }, masterMetadata)
-      .then((codec) => codec.toHuman() as any)
-      .then((payload) => setGameState(payload))
-      .catch(({ message }: Error) => alert.error(message));
-  };
-
-  const handleStateChange = ({ data }: MessagesDispatched, programId: HexString, onChange: () => void) => {
-    const changedIDs = data.stateChanges.toHuman() as HexString[];
-    const isAnyChange = changedIDs.some((id) => id === programId);
-
-    if (isAnyChange) onChange();
-  };
+export const useInitGame = () => {
+  const { state } = useReadGameState<IGameState>();
+  const { setGameState } = useGame();
 
   useEffect(() => {
-    if (!isApiReady || !contractAddress || !masterMetadata) return setGameState(undefined);
-
-    readMasterContractState();
-
-    const unsub = api.gearEvents.subscribeToGearEvent('MessagesDispatched', (event) =>
-      handleStateChange(event, contractAddress, readMasterContractState),
-    );
+    if (programId) {
+      setGameState(state);
+    }
 
     return () => {
-      unsub.then((unsubCallback) => unsubCallback());
+      setGameState(undefined);
     };
+  }, [setGameState, state]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isApiReady, contractAddress, masterMetadata]);
-
-  return contractAddress ? Boolean(gameState) : true;
+  return programId ? Boolean(state) : true;
 };
+
+export function useGameMessage() {
+  const metadata = useProgramMetadata(metaTxt);
+  return useSendMessage(programId, metadata);
+}
+
+export function usePending() {
+  const [pending, setPending] = useAtom(AtomPending);
+  return { pending, setPending };
+}
