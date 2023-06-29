@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { useGame, useGameMessage, usePending } from '../../../hooks'
-import { ICurrentGame } from '@/features/tic-tac-toe/types'
+import { IPlayerGame } from '@/features/tic-tac-toe/types'
 
 type GameStartButtonProps = BaseComponentProps & {
-  game: ICurrentGame
+  game: IPlayerGame
 }
 
 export function GameTurnButton({ game }: GameStartButtonProps) {

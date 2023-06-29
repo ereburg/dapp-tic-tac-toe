@@ -1,12 +1,12 @@
 import clsx from 'clsx'
 import styles from './game-field.module.scss'
 import { GameCell } from '../game-cell'
-import { ICurrentGame, IGameInstance } from '../../../types'
+import { IPlayerGame, IGameInstance } from '../../../types'
 import { GameMark } from '../game-mark'
 import { useGame } from '@/features/tic-tac-toe/hooks'
 
 type GameFieldProps = BaseComponentProps & {
-  game: ICurrentGame
+  game: IPlayerGame
 }
 
 export function GameField({ game }: GameFieldProps) {
@@ -16,12 +16,11 @@ export function GameField({ game }: GameFieldProps) {
   return (
     <div className={styles.grid}>
       {board.map((cell, i) => (
-        // eslint-disable-next-line react/no-array-index-key
         <GameCell key={i} disabled={Boolean(cell) || !countdown}>
           {cell && (
             <GameMark
               mark={cell}
-              className={clsx(cell === game.player_mark && styles.active)}
+              className={clsx(cell === game.playerMark && styles.active)}
             />
           )}
         </GameCell>

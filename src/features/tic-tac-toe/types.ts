@@ -3,23 +3,35 @@ import { HexString } from '@polkadot/util/types'
 
 export interface IGameState {
   admin: string
+  config: {
+    leaderboardContract: null | HexString
+    nftMembershipGuard: null | HexString
+  }
   instances: IGameInstance[]
   players: [HexString, IPlayer][]
 }
 
-export type IGameStatus = 'InProgress'
+export type IGameStatus =
+  | 'InProgress'
+  | {
+      Finished: { winner: Mark }
+    }
 
 export interface IGameInstance {
-  rand: { seed: string }
   board: IBoard
-  player: HexString
-  player_mark: Mark
-  bot_mark: Mark
-  status: IGameStatus
+  botMark: Mark
+  finishTime: string | null
+  isRewarded: boolean
   lastTime: string
+  player: HexString
+  playerMark: Mark
+  rand: { seed: string }
+  startTime: string
+  status: IGameStatus
+  winnerPoints: number | null
 }
 
-export interface ICurrentGame extends IGameInstance {
+export interface IPlayerGame extends IGameInstance {
   id: number
 }
 

@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import metaTxt from './assets/meta/ttt.meta.txt'
 import metaFT from './assets/meta/ft_main.meta.txt'
-import { IGameState } from './types'
+import { IGameInstance, IGameState, IPlayerGame } from './types'
 import {
   activeCellAtom,
   contractAtom,
@@ -71,13 +71,29 @@ export const useInitGame = () => {
       setContractState(state)
       console.log(state)
 
-      const gameIndex = state?.instances.findIndex(
-        (instance) => instance.player === account.decodedAddress
-      )
+      if (state!.instances.length > 0) {
+        const playerGames: IPlayerGame[] = []
+        const instances = state!.instances
 
-      if (gameIndex && gameIndex >= 0 && state) {
-        const game = state.instances[gameIndex]
-        setGameState({ ...game, id: gameIndex })
+        for (let i = 0; i < instances.length; i++) {
+          const instance = instances[i]
+          if (instance.player === account.decodedAddress) {
+            playerGames.push({ ...instance, id: i })
+          }
+        }
+
+        const finishedGames = playerGames.filter(
+          (game) => typeof game.status !== 'string'
+        )
+        const currentGames = playerGames.filter(
+          (game) => game.status === 'InProgress'
+        )
+
+        if (currentGames.length > 0) {
+          setGameState(currentGames[0])
+        } else if (finishedGames.length > 0) {
+          setGameState(finishedGames[0])
+        }
       }
     }
 
