@@ -3,10 +3,13 @@ import { GradientTitle, HelpDescription } from '../../ui/typography';
 import styles from './game.module.scss';
 import { GameField } from '../game-field';
 import { GameSelectedFigure } from '../game-selected-figure';
+import { IGameInstance } from '../../../types';
 
-type GameProps = BaseComponentProps & {};
+type GameProps = BaseComponentProps & {
+  game: IGameInstance;
+};
 
-export function Game({ children }: GameProps) {
+export function Game({ game }: GameProps) {
   return (
     <ColumnsContainer>
       <ColumnLeft>
@@ -16,11 +19,9 @@ export function Game({ children }: GameProps) {
         </HelpDescription>
       </ColumnLeft>
       <ColumnRight className={styles.field}>
-        <GameField />
+        <GameField game={game} />
 
-        <div className={styles.choose}>
-          <GameSelectedFigure />
-        </div>
+        <GameSelectedFigure mark={game.player_mark} className={styles.choose} />
       </ColumnRight>
     </ColumnsContainer>
   );

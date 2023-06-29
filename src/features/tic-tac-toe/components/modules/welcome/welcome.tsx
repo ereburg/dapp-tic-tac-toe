@@ -5,7 +5,7 @@ import { ColumnLeft, ColumnRight, ColumnsContainer } from 'features/tic-tac-toe/
 import { GradientTitle, HelpDescription } from 'features/tic-tac-toe/components/ui/typography';
 import { Wallet } from 'features/wallet';
 import styles from './welcome.module.scss';
-import { GameStartGame } from '../game-start-game';
+import { GameStartButton } from '../game-start-button';
 
 export function Welcome() {
   const { account } = useAccount();
@@ -20,7 +20,7 @@ export function Welcome() {
             to win PPV.
           </p>
         </HelpDescription>
-        <div>{account ? <GameStartGame>Start the game</GameStartGame> : <Wallet />}</div>
+        <div>{account ? <GameStartButton>Start the game</GameStartButton> : <Wallet />}</div>
       </ColumnLeft>
       <ColumnRight>
         <div className={styles.image}>

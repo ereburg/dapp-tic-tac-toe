@@ -1,12 +1,12 @@
 import { useProgramMetadata } from 'hooks';
-import { useReadFullState, useSendMessage } from '@gear-js/react-hooks';
+import { useAccount, useReadFullState, useSendMessage } from '@gear-js/react-hooks';
 import { useEffect } from 'react';
-import { useAtom } from 'jotai';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
 // @ts-ignore
 import metaTxt from './assets/meta/ttt.meta.txt';
 import { ADDRESS } from '../../consts';
 import { IGameState } from './types';
-import { AtomGame, AtomPending } from './consts';
+import { contractAtom, gameAtom, pendingAtom } from './consts';
 
 const programId = ADDRESS.CONTRACT;
 
@@ -16,23 +16,39 @@ function useReadGameState<T>() {
 }
 
 export function useGame() {
-  const [gameState, setGameState] = useAtom(AtomGame);
-  return { gameState, setGameState };
+  const setContractState = useSetAtom(contractAtom);
+  const contractState = useAtomValue(contractAtom);
+  const setGameState = useSetAtom(gameAtom);
+  const gameState = useAtomValue(gameAtom);
+  return {
+    contractState,
+    setContractState,
+    setGameState,
+    gameState,
+  };
 }
 
 export const useInitGame = () => {
+  const { account } = useAccount();
   const { state } = useReadGameState<IGameState>();
-  const { setGameState } = useGame();
+  const { setContractState, setGameState } = useGame();
 
   useEffect(() => {
-    if (programId) {
-      setGameState(state);
+    if (programId && account) {
+      setContractState(state);
+
+      // const findPlayer = state?.players.find((player) => player[0] === account.decodedAddress);
+
+      const game = state?.instances.find((instance) => instance.player === account.decodedAddress);
+      setGameState(game);
     }
 
     return () => {
-      setGameState(undefined);
+      setContractState(undefined);
     };
-  }, [setGameState, state]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account, state]);
 
   return programId ? Boolean(state) : true;
 };
@@ -43,6 +59,6 @@ export function useGameMessage() {
 }
 
 export function usePending() {
-  const [pending, setPending] = useAtom(AtomPending);
+  const [pending, setPending] = useAtom(pendingAtom);
   return { pending, setPending };
 }

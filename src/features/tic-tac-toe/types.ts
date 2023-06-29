@@ -1,26 +1,27 @@
 import { u64 } from '@polkadot/types';
+import { HexString } from '@polkadot/util/types';
 
 export interface IGameState {
   admin: string;
   instances: IGameInstance[];
-  players: Record<string, IPlayer>[];
+  players: [HexString, IPlayer][];
 }
 
-// export interface IPlayers {}
+export type IGameStatus = 'InProgress';
 
 export interface IGameInstance {
-  rand: number;
+  rand: { seed: string };
   board: IBoard;
-  player: string;
+  player: HexString;
   player_mark: Mark;
   bot_mark: Mark;
-  status: IGameState;
+  status: IGameStatus;
   last_time: string;
 }
 
 export interface IPlayer {
   name: string;
-  address: string;
+  address: HexString;
 }
 
 export interface IBoard {
@@ -29,12 +30,12 @@ export interface IBoard {
 }
 
 export enum Mark {
-  X,
-  O,
+  X = 'X',
+  O = 'O',
 }
 
-export type Seed = u64;
-export type Cell = Partial<Mark>;
+export type Seed = number;
+export type Cell = Mark | null;
 
 export interface GameAction {
   StartGame: { seed: Seed; name?: string };

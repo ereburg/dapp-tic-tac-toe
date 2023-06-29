@@ -2,9 +2,9 @@ import { Button } from 'components/ui/button';
 import { useAccount } from '@gear-js/react-hooks';
 import { useGameMessage, usePending } from '../../../hooks';
 
-type GameStartGameProps = BaseComponentProps & {};
+type GameStartButtonProps = BaseComponentProps & {};
 
-export function GameStartGame({ children }: GameStartGameProps) {
+export function GameStartButton({ children }: GameStartButtonProps) {
   const { account } = useAccount();
   const message = useGameMessage();
   const { pending, setPending } = usePending();

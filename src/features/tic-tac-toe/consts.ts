@@ -1,5 +1,6 @@
 import { atom } from 'jotai';
-import { IGameState } from './types';
+import { IGameInstance, IGameState } from './types';
 
-export const AtomGame = atom<IGameState | undefined>(undefined);
-export const AtomPending = atom<boolean>(false);
+export const contractAtom = atom<IGameState | undefined>(undefined);
+export const gameAtom = atom<IGameInstance | undefined>(undefined);
+export const pendingAtom = atom<boolean>(false);
