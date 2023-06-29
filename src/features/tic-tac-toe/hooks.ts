@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import metaTxt from './assets/meta/ttt.meta.txt'
 import metaFT from './assets/meta/ft_main.meta.txt'
-import { IGameInstance, IGameState, IPlayerGame } from './types'
+import { IGameState } from './types'
 import {
   activeCellAtom,
   contractAtom,
@@ -19,6 +19,7 @@ import {
 import { ADDRESS } from '@/app/consts'
 import { useProgramMetadata } from '@/app/hooks'
 import { HexString } from '@polkadot/util/types'
+import { getPlayerGames } from '@/features/tic-tac-toe/utils'
 
 const programIdGame = ADDRESS.CONTRACT
 const programIdFT = ADDRESS.FT
@@ -63,7 +64,7 @@ export const useInitGame = () => {
   const { account } = useAccount()
   const { state } = useReadState<IGameState>(programIdGame, metaTxt)
   const { state: stateFT } = useReadState<any>(programIdFT, metaFT)
-  const { setContractState, setGameState } = useGame()
+  const { setContractState, setGameState, setCountdown } = useGame()
   const { setFTState } = useFT()
 
   useEffect(() => {
@@ -71,28 +72,41 @@ export const useInitGame = () => {
       setContractState(state)
       console.log(state)
 
-      if (state!.instances.length > 0) {
-        const playerGames: IPlayerGame[] = []
-        const instances = state!.instances
+      if (state && state.instances.length > 0) {
+        const currentPlayer = state.players.find(
+          ([id]) => id === account.decodedAddress
+        )
 
-        for (let i = 0; i < instances.length; i++) {
-          const instance = instances[i]
-          if (instance.player === account.decodedAddress) {
-            playerGames.push({ ...instance, id: i })
+        if (currentPlayer) {
+          const lastGameId = currentPlayer[1].lastGameId
+
+          if (lastGameId) {
+            const game = state.instances[lastGameId]
+            setGameState({ ...game, id: lastGameId })
+            console.log('game: ', {
+              ...game,
+              id: lastGameId,
+            })
+
+            setCountdown((prev) => {
+              const isNew = prev?.value !== game.lastTime
+
+              return isNew ? { value: game.lastTime, isActive: isNew } : prev
+            })
+          } else {
+            const { finishedGames, currentGames } = getPlayerGames(
+              state,
+              account
+            )
+            if (currentGames.length > 0) {
+              setGameState(currentGames[0])
+            } else if (finishedGames.length > 0) {
+              setGameState(finishedGames[0])
+            }
           }
-        }
-
-        const finishedGames = playerGames.filter(
-          (game) => typeof game.status !== 'string'
-        )
-        const currentGames = playerGames.filter(
-          (game) => game.status === 'InProgress'
-        )
-
-        if (currentGames.length > 0) {
-          setGameState(currentGames[0])
-        } else if (finishedGames.length > 0) {
-          setGameState(finishedGames[0])
+        } else {
+          setGameState(undefined)
+          setCountdown(undefined)
         }
       }
     }

@@ -1,9 +1,12 @@
 import clsx from 'clsx'
 import styles from './game-field.module.scss'
 import { GameCell } from '../game-cell'
-import { IPlayerGame, IGameInstance } from '../../../types'
+import { IFieldCell, IPlayerGame } from '../../../types'
 import { GameMark } from '../game-mark'
 import { useGame } from '@/features/tic-tac-toe/hooks'
+import { calculateWinner } from '@/features/tic-tac-toe/utils'
+import { motion } from 'framer-motion'
+import { variantsGameMark } from '@/features/tic-tac-toe/variants'
 
 type GameFieldProps = BaseComponentProps & {
   game: IPlayerGame
@@ -11,20 +14,55 @@ type GameFieldProps = BaseComponentProps & {
 
 export function GameField({ game }: GameFieldProps) {
   const { countdown } = useGame()
-  const board = game.board.cells.flat()
+  const board = game.board.cells
+  const field: IFieldCell[] = []
+
+  for (let i = 0; i < board.length; i++) {
+    const row = board[i]
+
+    for (let j = 0; j < row.length; j++) {
+      const cell = row[j]
+      field.push({ cell, x: i, y: j })
+    }
+  }
+
+  const winnerRow = calculateWinner(board.flat())
+  const winnerColor = winnerRow
+    ? game.playerMark === board.flat()[winnerRow[0][0]]
+    : false
 
   return (
     <div className={styles.grid}>
-      {board.map((cell, i) => (
-        <GameCell key={i} disabled={Boolean(cell) || !countdown}>
-          {cell && (
+      {field.map((f, i) => (
+        <GameCell
+          key={i}
+          disabled={
+            Boolean(f.cell || winnerRow)
+            // || !countdown
+          }
+          value={f}
+          game={game}
+        >
+          {f.cell && (
             <GameMark
-              mark={cell}
-              className={clsx(cell === game.playerMark && styles.active)}
+              mark={f.cell}
+              className={clsx(f.cell === game.playerMark && styles.active)}
             />
           )}
         </GameCell>
       ))}
+      {winnerRow && (
+        <motion.div
+          initial="enter"
+          animate="center"
+          variants={variantsGameMark}
+          className={clsx(
+            styles.line,
+            styles[winnerRow[1]],
+            winnerColor && styles['line--primary']
+          )}
+        />
+      )}
     </div>
   )
 }

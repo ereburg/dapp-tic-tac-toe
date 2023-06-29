@@ -20,7 +20,7 @@ const Clock = ({ minutes, seconds }: CountdownRenderProps) => {
 }
 
 export function GameCountdown({ mark, timer }: GameCountdownProps) {
-  const { setCountdown } = useGame()
+  const { setCountdown, countdown } = useGame()
 
   return (
     <div className={styles.wrapper}>
@@ -28,14 +28,23 @@ export function GameCountdown({ mark, timer }: GameCountdownProps) {
         <GameMark mark={mark} className={styles.mark} />
       </div>
       <div className={styles.text}>Your turn</div>
-      <div className={styles.timer}>
-        <Countdown
-          date={Number(withoutCommas(timer)) + 30000}
-          renderer={Clock}
-          onComplete={() => setCountdown(false)}
-          onStart={() => setCountdown(true)}
-        />
-      </div>
+      {countdown && (
+        <div className={styles.timer}>
+          <Countdown
+            date={Number(withoutCommas(timer)) + 30000}
+            renderer={Clock}
+            onComplete={() =>
+              setCountdown((prev) => ({
+                value: prev ? prev.value : '',
+                isActive: false,
+              }))
+            }
+            //   onStart={() =>
+            //     setCountdown((prev) => ({ ...prev, isActive: true }))
+            // }
+          />
+        </div>
+      )}
     </div>
   )
 }

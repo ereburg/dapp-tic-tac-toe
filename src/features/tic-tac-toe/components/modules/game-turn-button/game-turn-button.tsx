@@ -21,13 +21,13 @@ export function GameTurnButton({ game }: GameStartButtonProps) {
     message({ Turn: turnData }, { onError, onSuccess })
   }
 
-  return (
+  return !countdown ? (
     <Button
       onClick={onNextTurn}
       isLoading={pending}
       variant={countdown ? 'primary' : 'black'}
     >
-      {countdown ? 'Make Turn' : 'Skip'}
+      Skip
     </Button>
-  )
+  ) : null
 }

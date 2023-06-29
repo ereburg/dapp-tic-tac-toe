@@ -38,6 +38,7 @@ export interface IPlayerGame extends IGameInstance {
 export interface IPlayer {
   name: string
   address: HexString
+  lastGameId: number
 }
 
 export interface IBoard {
@@ -54,6 +55,7 @@ export type Seed = number
 export type Cell = Mark | null
 
 export type IActiveCell = { game_id: number; x: number; y: number }
+export type IFieldCell = { cell: Cell; x: number; y: number }
 
 export interface GameAction {
   StartGame: { seed: Seed; name?: string }
