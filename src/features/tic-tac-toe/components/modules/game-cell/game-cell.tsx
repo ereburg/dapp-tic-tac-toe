@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
+import { Button } from 'components/ui/button';
 import styles from './game-cell.module.scss';
 import { variantsGameMark } from '../../../variants';
-import { Button } from '../../../../../components/ui/button';
 
 type GameFieldProps = BaseComponentProps & {};
 

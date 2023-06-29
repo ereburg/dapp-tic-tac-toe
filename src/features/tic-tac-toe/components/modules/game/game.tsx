@@ -2,7 +2,7 @@ import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../ui/columns';
 import { GradientTitle, HelpDescription } from '../../ui/typography';
 import styles from './game.module.scss';
 import { GameField } from '../game-field';
-import { GameSelectedFigure } from '../game-selected-figure';
+import { GameInfoPlayerMark } from '../game-info-player-mark';
 import { IGameInstance } from '../../../types';
 
 type GameProps = BaseComponentProps & {
@@ -21,7 +21,7 @@ export function Game({ game }: GameProps) {
       <ColumnRight className={styles.field}>
         <GameField game={game} />
 
-        <GameSelectedFigure mark={game.player_mark} className={styles.choose} />
+        <GameInfoPlayerMark mark={game.player_mark} className={styles.choose} />
       </ColumnRight>
     </ColumnsContainer>
   );
