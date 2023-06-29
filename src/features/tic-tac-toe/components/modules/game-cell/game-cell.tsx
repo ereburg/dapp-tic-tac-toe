@@ -3,11 +3,13 @@ import { Button } from '@/components/ui/button'
 import styles from './game-cell.module.scss'
 import { variantsGameMark } from '../../../variants'
 
-type GameFieldProps = BaseComponentProps & {}
+type GameFieldProps = BaseComponentProps & {
+  disabled?: boolean
+}
 
-export function GameCell({ children }: GameFieldProps) {
+export function GameCell({ children, disabled }: GameFieldProps) {
   return (
-    <Button variant="text" className={styles.cell}>
+    <Button variant="text" className={styles.cell} disabled={disabled}>
       <motion.span
         initial="enter"
         animate="center"
