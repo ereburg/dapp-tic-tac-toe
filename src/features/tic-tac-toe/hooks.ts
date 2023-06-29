@@ -6,15 +6,18 @@ import {
 import { useEffect } from 'react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import metaTxt from './assets/meta/ttt.meta.txt'
+import metaFT from './assets/meta/ft_main.meta.txt'
 import { IGameState } from './types'
-import { contractAtom, gameAtom, pendingAtom } from './consts'
+import { contractAtom, ftAtom, gameAtom, pendingAtom } from './consts'
 import { ADDRESS } from '@/app/consts'
 import { useProgramMetadata } from '@/app/hooks'
+import { HexString } from '@polkadot/util/types'
 
-const programId = ADDRESS.CONTRACT
+const programIdGame = ADDRESS.CONTRACT
+const programIdFT = ADDRESS.FT
 
-function useReadGameState<T>() {
-  const metadata = useProgramMetadata(metaTxt)
+function useReadState<T>(programId: HexString, meta: string) {
+  const metadata = useProgramMetadata(meta)
   return useReadFullState<T>(programId, metadata)
 }
 
@@ -31,13 +34,24 @@ export function useGame() {
   }
 }
 
+export function useFT() {
+  const setFTState = useSetAtom(ftAtom)
+  const ftState = useAtomValue(ftAtom)
+  return {
+    ftState,
+    setFTState,
+  }
+}
+
 export const useInitGame = () => {
   const { account } = useAccount()
-  const { state } = useReadGameState<IGameState>()
+  const { state } = useReadState<IGameState>(programIdGame, metaTxt)
+  const { state: stateFT } = useReadState<any>(programIdFT, metaFT)
   const { setContractState, setGameState } = useGame()
+  const { setFTState } = useFT()
 
   useEffect(() => {
-    if (programId && account) {
+    if (programIdGame && account) {
       setContractState(state)
 
       // const findPlayer = state?.players.find((player) => player[0] === account.decodedAddress);
@@ -55,12 +69,22 @@ export const useInitGame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account, state])
 
-  return programId ? Boolean(state) : true
+  useEffect(() => {
+    if (programIdFT) {
+      setFTState(stateFT)
+    }
+
+    return () => {
+      setFTState(undefined)
+    }
+  }, [setFTState, stateFT])
+
+  return programIdGame ? Boolean(state) : true
 }
 
 export function useGameMessage() {
   const metadata = useProgramMetadata(metaTxt)
-  return useSendMessage(programId, metadata)
+  return useSendMessage(programIdGame, metadata)
 }
 
 export function usePending() {
