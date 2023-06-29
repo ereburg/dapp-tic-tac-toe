@@ -3,12 +3,12 @@ import { GradientTitle, HelpDescription } from '../../ui/typography'
 import styles from './game.module.scss'
 import { GameField } from '../game-field'
 import { GameInfoPlayerMark } from '../game-info-player-mark'
-import { IGameInstance } from '../../../types'
+import { ICurrentGame } from '../../../types'
 import { GameCountdown } from '../game-countdown'
-import { Button } from '@/components/ui/button'
+import { GameTurnButton } from '@/features/tic-tac-toe/components/modules/game-turn-button'
 
 type GameProps = BaseComponentProps & {
-  game: IGameInstance
+  game: ICurrentGame
 }
 
 export function Game({ game }: GameProps) {
@@ -24,7 +24,7 @@ export function Game({ game }: GameProps) {
           </p>
         </HelpDescription>
         <GameCountdown mark={game.player_mark} timer={game.lastTime} />
-        <Button>Make Turn</Button>
+        <GameTurnButton game={game} />
       </ColumnLeft>
       <ColumnRight className={styles.field}>
         <GameField game={game} />

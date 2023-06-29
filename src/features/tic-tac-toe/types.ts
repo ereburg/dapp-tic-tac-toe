@@ -19,6 +19,10 @@ export interface IGameInstance {
   lastTime: string
 }
 
+export interface ICurrentGame extends IGameInstance {
+  id: number
+}
+
 export interface IPlayer {
   name: string
   address: HexString
@@ -37,9 +41,11 @@ export enum Mark {
 export type Seed = number
 export type Cell = Mark | null
 
+export type IActiveCell = { game_id: number; x: number; y: number }
+
 export interface GameAction {
   StartGame: { seed: Seed; name?: string }
-  Turn: { game_id: number; x: number; y: number }
+  Turn: IActiveCell
 }
 
 export interface GameEvent {

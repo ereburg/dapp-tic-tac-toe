@@ -8,7 +8,14 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import metaTxt from './assets/meta/ttt.meta.txt'
 import metaFT from './assets/meta/ft_main.meta.txt'
 import { IGameState } from './types'
-import { contractAtom, ftAtom, gameAtom, pendingAtom } from './consts'
+import {
+  activeCellAtom,
+  contractAtom,
+  countdownAtom,
+  ftAtom,
+  gameAtom,
+  pendingAtom,
+} from './consts'
 import { ADDRESS } from '@/app/consts'
 import { useProgramMetadata } from '@/app/hooks'
 import { HexString } from '@polkadot/util/types'
@@ -26,11 +33,20 @@ export function useGame() {
   const contractState = useAtomValue(contractAtom)
   const setGameState = useSetAtom(gameAtom)
   const gameState = useAtomValue(gameAtom)
+  const setCountdown = useSetAtom(countdownAtom)
+  const countdown = useAtomValue(countdownAtom)
+  const setActiveCell = useSetAtom(activeCellAtom)
+  const activeCell = useAtomValue(activeCellAtom)
+
   return {
     contractState,
     setContractState,
     setGameState,
     gameState,
+    setCountdown,
+    countdown,
+    setActiveCell,
+    activeCell,
   }
 }
 
@@ -53,13 +69,16 @@ export const useInitGame = () => {
   useEffect(() => {
     if (programIdGame && account) {
       setContractState(state)
+      console.log(state)
 
-      // const findPlayer = state?.players.find((player) => player[0] === account.decodedAddress);
-
-      const game = state?.instances.find(
+      const gameIndex = state?.instances.findIndex(
         (instance) => instance.player === account.decodedAddress
       )
-      setGameState(game)
+
+      if (gameIndex && gameIndex >= 0 && state) {
+        const game = state.instances[gameIndex]
+        setGameState({ ...game, id: gameIndex })
+      }
     }
 
     return () => {
