@@ -7,7 +7,7 @@ type AccountBalanceProps = BaseComponentProps & {}
 export function AccountTokensBalance({ className }: AccountBalanceProps) {
   const { ftState } = useFT()
 
-  console.log({ ftState })
+  // console.log({ ftState })
   return ftState ? (
     <div className={styles.wrapper}>
       <div className={styles.icon}>
