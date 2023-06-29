@@ -1,5 +1,5 @@
-import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../common/columns';
-import { GradientTitle, HelpDescription } from '../../common/typography';
+import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../ui/columns';
+import { GradientTitle, HelpDescription } from '../../ui/typography';
 import styles from './game.module.scss';
 import { GameField } from '../game-field';
 import { GameSelectedFigure } from '../game-selected-figure';

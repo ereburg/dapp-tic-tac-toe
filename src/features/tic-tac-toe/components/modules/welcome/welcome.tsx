@@ -1,31 +1,14 @@
 import WelcomePNG from 'features/tic-tac-toe/assets/images/welcome-bg.png';
 import WelcomeWebp from 'features/tic-tac-toe/assets/images/welcome-bg.webp';
-import { Button } from 'components/ui/button';
 import { useAccount } from '@gear-js/react-hooks';
-import { ColumnLeft, ColumnRight, ColumnsContainer } from '../../common/columns';
+import { ColumnLeft, ColumnRight, ColumnsContainer } from 'features/tic-tac-toe/components/ui/columns';
+import { GradientTitle, HelpDescription } from 'features/tic-tac-toe/components/ui/typography';
+import { Wallet } from 'features/wallet';
 import styles from './welcome.module.scss';
-import { GradientTitle, HelpDescription } from '../../common/typography';
-import { Wallet } from '../../../../wallet';
-import { useGameMessage, usePending } from '../../../hooks';
+import { GameStartGame } from '../game-start-game';
 
 export function Welcome() {
   const { account } = useAccount();
-  const message = useGameMessage();
-  const { pending, setPending } = usePending();
-
-  const seed = Math.floor(Math.random() * 10 ** 10);
-
-  const onError = () => {
-    setPending(false);
-  };
-  const onSuccess = () => {
-    setPending(false);
-  };
-
-  const onGameStart = () => {
-    setPending(true);
-    message({ StartGame: { seed, name: account?.meta.name } }, { onError, onSuccess });
-  };
 
   return (
     <ColumnsContainer>
@@ -37,15 +20,7 @@ export function Welcome() {
             to win PPV.
           </p>
         </HelpDescription>
-        <div>
-          {account ? (
-            <Button onClick={onGameStart} isLoading={pending}>
-              Start the game
-            </Button>
-          ) : (
-            <Wallet />
-          )}
-        </div>
+        <div>{account ? <GameStartGame>Start the game</GameStartGame> : <Wallet />}</div>
       </ColumnLeft>
       <ColumnRight>
         <div className={styles.image}>
