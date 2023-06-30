@@ -12,6 +12,7 @@ import { WalletItem } from '../wallet-item'
 import styles from './WalletModal.module.scss'
 import { copyToClipboard } from '@/app/utils'
 import { Modal } from '@/components'
+import { useGame } from '@/features/tic-tac-toe/hooks'
 
 type Props = {
   onClose(): void
@@ -20,6 +21,7 @@ type Props = {
 function WalletModal({ onClose }: Props) {
   const alert = useAlert()
   const { extensions, account, login, logout } = useAccount()
+  const { resetGameState } = useGame()
 
   const {
     wallet,
@@ -109,6 +111,7 @@ function WalletModal({ onClose }: Props) {
     logout()
     removeWallet()
     onClose()
+    resetGameState()
   }
 
   return (

@@ -42,7 +42,15 @@ export function useGame() {
   const setActiveCell = useSetAtom(activeCellAtom)
   const activeCell = useAtomValue(activeCellAtom)
 
+  const resetGameState = () => {
+    setContractState(undefined)
+    setGameState(undefined)
+    setCountdown(undefined)
+    setActiveCell(undefined)
+  }
+
   return {
+    resetGameState,
     contractState,
     setContractState,
     setGameState,
@@ -60,7 +68,8 @@ export const useInitGame = () => {
     programId: programIdGame,
     meta: metaTxt,
   })
-  const { setContractState, setGameState, setCountdown } = useGame()
+  const { setContractState, setGameState, setCountdown, resetGameState } =
+    useGame()
 
   useEffect(() => {
     if (programIdGame && account) {
@@ -100,14 +109,13 @@ export const useInitGame = () => {
             }
           }
         } else {
-          setGameState(undefined)
-          setCountdown(undefined)
+          resetGameState()
         }
       }
     }
 
     return () => {
-      setContractState(undefined)
+      resetGameState()
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
