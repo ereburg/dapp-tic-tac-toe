@@ -18,6 +18,7 @@ function Component() {
   const isUserReady = isGameReady && isFTReady
   const hasError = errorFT || errorGame
 
+  console.log({ hasError, isUserReady, isAppReady })
   return (
     <>
       <Header />
@@ -26,20 +27,18 @@ function Component() {
           <>
             {errorFT && (
               <LoadingError>
-                <p>
-                  Error in the FT contract :(
-                  <br />
-                  <small>See console logs for more info.</small>
-                </p>
+                <p>Error in the FT contract :(</p>
+                <pre>
+                  <small>Error message:</small> <code>{errorFT}</code>
+                </pre>
               </LoadingError>
             )}
             {errorGame && (
               <LoadingError>
-                <p>
-                  Error in the Game contract :(
-                  <br />
-                  <small>See console logs for more info.</small>
-                </p>
+                <p>Error in the Game contract :(</p>
+                <pre>
+                  <small>Error message:</small> <code>{errorGame}</code>
+                </pre>
               </LoadingError>
             )}
             {!hasError && isUserReady && <Routing />}
