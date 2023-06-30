@@ -3,7 +3,7 @@ import { GradientTitle, HelpDescription } from '../../ui/typography'
 import styles from './game.module.scss'
 import { GameField } from '../game-field'
 import { GameInfoPlayerMark } from '../game-info-player-mark'
-import { IPlayerGame } from '../../../types'
+import { Cell, IGameStatus, IPlayerGame, Mark } from '../../../types'
 import { GameCountdown } from '../game-countdown'
 import { GameTurnButton } from '@/features/tic-tac-toe/components/modules/game-turn-button'
 import { GameStartButton } from '@/features/tic-tac-toe/components/modules/game-start-button'
@@ -13,14 +13,21 @@ type GameProps = BaseComponentProps & {
   game: IPlayerGame
 }
 
+function getGameStatus(status: IGameStatus, playerMark: Mark) {
+  if (typeof status !== 'string') {
+    const winnerMark = status.Finished.winner
+    if (!winnerMark) return 'draw'
+    if (winnerMark === playerMark) return 'win'
+    return 'lose'
+  }
+  return undefined
+}
+
 export function Game({ game }: GameProps) {
   const isGameFinished = Boolean(
     typeof game.status !== 'string' && game.status.Finished
   )
-  const isPlayerWin =
-    typeof game.status !== 'string'
-      ? game.status.Finished.winner === game.playerMark
-      : false
+  const gameEndStatus = getGameStatus(game.status, game.playerMark)
 
   return (
     <ColumnsContainer>
@@ -28,8 +35,9 @@ export function Game({ game }: GameProps) {
         <GradientTitle>
           {isGameFinished ? (
             <>
-              {isPlayerWin && 'You win'}
-              {!isPlayerWin && 'You lose'}
+              {gameEndStatus === 'win' && 'You win'}
+              {gameEndStatus === 'lose' && 'You lose'}
+              {gameEndStatus === 'draw' && "It's a draw"}
             </>
           ) : (
             'Tic Tac Toe game'
@@ -38,16 +46,22 @@ export function Game({ game }: GameProps) {
         <HelpDescription>
           {isGameFinished ? (
             <>
-              {isPlayerWin && (
+              {gameEndStatus === 'win' && (
                 <p>
                   Congratulations, the game is over, you won! Play and win to
                   make it to the Leaderboard. Good job.
                 </p>
               )}
-              {!isPlayerWin && (
+              {gameEndStatus === 'lose' && (
                 <p>
                   Try playing again to win and earn PPV. Play and win to make it
                   to the Leaderboard.
+                </p>
+              )}
+              {gameEndStatus === 'draw' && (
+                <p>
+                  The game is over, it's a draw! Play and win to make it to the
+                  Leaderboard. Try again to win.
                 </p>
               )}
             </>
@@ -59,7 +73,7 @@ export function Game({ game }: GameProps) {
           )}
         </HelpDescription>
 
-        {isPlayerWin && <GameReward amount={game.winnerPoints} />}
+        {gameEndStatus === 'win' && <GameReward amount={game.winnerPoints} />}
 
         {!isGameFinished ? (
           <>

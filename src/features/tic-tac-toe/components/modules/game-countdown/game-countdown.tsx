@@ -28,7 +28,7 @@ export function GameCountdown({ mark, timer }: GameCountdownProps) {
         <GameMark mark={mark} className={styles.mark} />
       </div>
       <div className={styles.text}>Your turn</div>
-      {countdown && (
+      {countdown?.isActive && (
         <div className={styles.timer}>
           <Countdown
             date={Number(withoutCommas(timer)) + 30000}

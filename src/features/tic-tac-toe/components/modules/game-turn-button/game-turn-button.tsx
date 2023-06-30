@@ -21,11 +21,11 @@ export function GameTurnButton({ game }: GameStartButtonProps) {
     message({ Turn: turnData }, { onError, onSuccess })
   }
 
-  return !countdown ? (
+  return !countdown?.isActive ? (
     <Button
       onClick={onNextTurn}
       isLoading={pending}
-      variant={countdown ? 'primary' : 'black'}
+      variant={countdown?.isActive ? 'primary' : 'black'}
     >
       Skip
     </Button>

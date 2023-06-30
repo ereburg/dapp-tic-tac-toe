@@ -14,7 +14,7 @@ export interface IGameState {
 export type IGameStatus =
   | 'InProgress'
   | {
-      Finished: { winner: Mark }
+      Finished: { winner: Cell }
     }
 
 export interface IGameInstance {

@@ -3,7 +3,7 @@ import styles from './game-field.module.scss'
 import { GameCell } from '../game-cell'
 import { IFieldCell, IPlayerGame } from '../../../types'
 import { GameMark } from '../game-mark'
-import { useGame } from '@/features/tic-tac-toe/hooks'
+import { useGame, usePending } from '@/features/tic-tac-toe/hooks'
 import { calculateWinner } from '@/features/tic-tac-toe/utils'
 import { motion } from 'framer-motion'
 import { variantsGameMark } from '@/features/tic-tac-toe/variants'
@@ -13,7 +13,7 @@ type GameFieldProps = BaseComponentProps & {
 }
 
 export function GameField({ game }: GameFieldProps) {
-  const { countdown } = useGame()
+  const { pending } = usePending()
   const board = game.board.cells
   const field: IFieldCell[] = []
 
@@ -22,7 +22,7 @@ export function GameField({ game }: GameFieldProps) {
 
     for (let j = 0; j < row.length; j++) {
       const cell = row[j]
-      field.push({ cell, x: i, y: j })
+      field.push({ cell, x: j, y: i })
     }
   }
 
@@ -36,10 +36,7 @@ export function GameField({ game }: GameFieldProps) {
       {field.map((f, i) => (
         <GameCell
           key={i}
-          disabled={
-            Boolean(f.cell || winnerRow)
-            // || !countdown
-          }
+          disabled={Boolean(f.cell || winnerRow) || pending}
           value={f}
           game={game}
         >
