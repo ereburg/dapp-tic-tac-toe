@@ -1,6 +1,6 @@
 import styles from './game-reward.module.scss'
 import { GameRewardIcon } from '@/features/tic-tac-toe/assets'
-import { TokensWallet } from '@/components/ui/tokens-wallet'
+import { TokensWallet } from '../../../../tokens-wallet'
 
 type GameRewardProps = BaseComponentProps & {
   amount: number | null

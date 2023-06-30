@@ -3,7 +3,7 @@ import { GradientTitle, HelpDescription } from '../../ui/typography'
 import styles from './game.module.scss'
 import { GameField } from '../game-field'
 import { GameInfoPlayerMark } from '../game-info-player-mark'
-import { Cell, IGameStatus, IPlayerGame, Mark } from '../../../types'
+import { IGameStatus, IPlayerGame, Mark } from '../../../types'
 import { GameCountdown } from '../game-countdown'
 import { GameTurnButton } from '@/features/tic-tac-toe/components/modules/game-turn-button'
 import { GameStartButton } from '@/features/tic-tac-toe/components/modules/game-start-button'
@@ -60,8 +60,8 @@ export function Game({ game }: GameProps) {
               )}
               {gameEndStatus === 'draw' && (
                 <p>
-                  The game is over, it's a draw! Play and win to make it to the
-                  Leaderboard. Try again to win.
+                  The game is over, it's a draw! <br /> Play and win to make it
+                  to the Leaderboard. <br /> Try again to win.
                 </p>
               )}
             </>

@@ -5,26 +5,29 @@ import {
 } from '@gear-js/react-hooks'
 import { useEffect } from 'react'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-import metaTxt from './assets/meta/ttt.meta.txt'
-import metaFT from './assets/meta/ft_main.meta.txt'
-import { IGameState } from './types'
+import metaTxt from '../assets/meta/ttt.meta.txt'
+import { IGameState } from '../types'
 import {
   activeCellAtom,
   contractAtom,
   countdownAtom,
-  ftAtom,
   gameAtom,
   pendingAtom,
-} from './consts'
+} from '../consts'
 import { ADDRESS } from '@/app/consts'
 import { useProgramMetadata } from '@/app/hooks'
 import { HexString } from '@polkadot/util/types'
 import { getPlayerGames } from '@/features/tic-tac-toe/utils'
 
 const programIdGame = ADDRESS.CONTRACT
-const programIdFT = ADDRESS.FT
 
-function useReadState<T>(programId: HexString, meta: string) {
+export function useReadState<T>({
+  programId,
+  meta,
+}: {
+  programId?: HexString
+  meta: string
+}) {
   const metadata = useProgramMetadata(meta)
   return useReadFullState<T>(programId, metadata)
 }
@@ -51,26 +54,18 @@ export function useGame() {
   }
 }
 
-export function useFT() {
-  const setFTState = useSetAtom(ftAtom)
-  const ftState = useAtomValue(ftAtom)
-  return {
-    ftState,
-    setFTState,
-  }
-}
-
 export const useInitGame = () => {
   const { account } = useAccount()
-  const { state } = useReadState<IGameState>(programIdGame, metaTxt)
-  const { state: stateFT } = useReadState<any>(programIdFT, metaFT)
+  const { state } = useReadState<IGameState>({
+    programId: programIdGame,
+    meta: metaTxt,
+  })
   const { setContractState, setGameState, setCountdown } = useGame()
-  const { setFTState } = useFT()
 
   useEffect(() => {
     if (programIdGame && account) {
       setContractState(state)
-      console.log(state)
+      // console.log(state)
 
       if (state && state.instances.length > 0) {
         const currentPlayer = state.players.find(
@@ -83,10 +78,10 @@ export const useInitGame = () => {
           if (lastGameId) {
             const game = state.instances[lastGameId]
             setGameState({ ...game, id: lastGameId })
-            console.log('game: ', {
-              ...game,
-              id: lastGameId,
-            })
+            // console.log('game: ', {
+            //   ...game,
+            //   id: lastGameId,
+            // })
 
             setCountdown((prev) => {
               const isNew = prev?.value !== game.lastTime
@@ -117,16 +112,6 @@ export const useInitGame = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account, state])
-
-  useEffect(() => {
-    if (programIdFT) {
-      setFTState(stateFT)
-    }
-
-    return () => {
-      setFTState(undefined)
-    }
-  }, [setFTState, stateFT])
 
   return programIdGame ? Boolean(state) : true
 }

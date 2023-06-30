@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { useAccount } from '@gear-js/react-hooks'
-import { useGameMessage, usePending } from '../../../hooks'
+import { useGameMessage, usePending } from '../../../hooks/use-game'
 
 type GameStartButtonProps = BaseComponentProps & {}
 

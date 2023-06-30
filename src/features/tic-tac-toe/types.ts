@@ -1,4 +1,3 @@
-import { u64 } from '@polkadot/types'
 import { HexString } from '@polkadot/util/types'
 
 export interface IGameState {
@@ -57,12 +56,35 @@ export type Cell = Mark | null
 export type IActiveCell = { game_id: number; x: number; y: number }
 export type IFieldCell = { cell: Cell; x: number; y: number }
 
-export interface GameAction {
-  StartGame: { seed: Seed; name?: string }
-  Turn: IActiveCell
+// export interface GameAction {
+//   StartGame: { seed: Seed; name?: string }
+//   Turn: IActiveCell
+// }
+
+// export interface GameEvent {
+//   GameStarted: { id: u64; player: string }
+//   Turn: { id: u64 }
+// }
+
+export type IFTMain = {
+  admin: HexString
+  ftLogicId: HexString
+  transactions: []
 }
 
-export interface GameEvent {
-  GameStarted: { id: u64; player: string }
-  Turn: { id: u64 }
+export type IFTLogic = {
+  admin: HexString
+  ftokenId: HexString
+  idToStorage: Array<[string, HexString]>
+  instructions: []
+  storageCodeHash: HexString
+  transactions?: [] // missing on empty state
+  transactionStatus: []
+}
+
+export type IFTStorage = {
+  approvals: []
+  balances: Array<[HexString, number]>
+  ftLogicId: HexString
+  transactionStatus: []
 }

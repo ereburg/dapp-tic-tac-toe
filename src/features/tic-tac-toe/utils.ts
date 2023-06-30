@@ -1,7 +1,12 @@
 import { MessagesDispatched } from '@gear-js/api'
 import { HexString } from '@polkadot/util/types'
-import { Cell, IGameState, IPlayerGame } from '@/features/tic-tac-toe/types'
-import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'
+import {
+  Cell,
+  IFTLogic,
+  IFTStorage,
+  IGameState,
+  IPlayerGame,
+} from '@/features/tic-tac-toe/types'
 import { Account } from '@gear-js/react-hooks'
 
 export const handleStateChange = (
@@ -54,4 +59,39 @@ export function calculateWinner(squares: Cell[]) {
     }
   }
   return null
+}
+
+export const getFTStorageIdByAccount = ({
+  stateLogic,
+  account,
+}: {
+  stateLogic?: IFTLogic
+  account: Account
+}) => {
+  if (stateLogic && stateLogic.idToStorage.length > 0 && account) {
+    for (let i = 0; i < stateLogic.idToStorage.length; i++) {
+      const id = stateLogic.idToStorage[i]
+      if (id[0] === account.decodedAddress.charAt(2)) {
+        return id[1] as HexString
+      }
+    }
+  }
+  return undefined
+}
+
+export const getAccountBalanceById = ({
+  stateStorage,
+  account,
+}: {
+  stateStorage?: IFTStorage
+  account: Account
+}) => {
+  if (stateStorage) {
+    for (const a of stateStorage.balances) {
+      if (a[0] === account?.decodedAddress) {
+        return a[1] as number
+      }
+    }
+  }
+  return 0
 }

@@ -3,7 +3,10 @@ import { Button } from '@/components/ui/button'
 import styles from './game-cell.module.scss'
 import { variantsGameMark } from '../../../variants'
 import { IFieldCell, IPlayerGame } from '@/features/tic-tac-toe/types'
-import { useGameMessage, usePending } from '@/features/tic-tac-toe/hooks'
+import {
+  useGameMessage,
+  usePending,
+} from '@/features/tic-tac-toe/hooks/use-game'
 import clsx from 'clsx'
 
 type GameFieldProps = BaseComponentProps & {

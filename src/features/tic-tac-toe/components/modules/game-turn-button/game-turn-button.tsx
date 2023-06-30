@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { useGame, useGameMessage, usePending } from '../../../hooks'
+import { useGame, useGameMessage, usePending } from '../../../hooks/use-game'
 import { IPlayerGame } from '@/features/tic-tac-toe/types'
 
 type GameStartButtonProps = BaseComponentProps & {

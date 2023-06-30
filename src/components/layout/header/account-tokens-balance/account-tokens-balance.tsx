@@ -1,14 +1,19 @@
 import styles from './account-tokens-balance.module.scss'
-import { useFT } from '@/features/tic-tac-toe/hooks'
-import { TokensWallet } from '@/components/ui/tokens-wallet'
+import {
+  useAccountFTBalance,
+  useInitAccountFTBalance,
+} from '@/features/tic-tac-toe/hooks/use-ft-balance'
+import { TokensWallet } from '@/features/tokens-wallet'
+import { useAccount } from '@gear-js/react-hooks'
 
 type AccountBalanceProps = BaseComponentProps & {}
 
 export function AccountTokensBalance({ className }: AccountBalanceProps) {
-  const { ftState } = useFT()
+  const { isAccountReady } = useAccount()
+  const isFTStateReady = useInitAccountFTBalance()
+  const { balance } = useAccountFTBalance()
 
-  // console.log({ ftState })
-  return ftState ? (
-    <TokensWallet unit={'PPV'} amount={0} className={styles.wrapper} />
+  return isAccountReady && isFTStateReady ? (
+    <TokensWallet unit={'PPV'} amount={balance} className={styles.wrapper} />
   ) : null
 }
