@@ -1,9 +1,13 @@
+@use '@/assets/styles/utils' as *;
+
 .wrapper {
   display: flex;
   align-items: center;
-  padding: 15px 24px;
-  background-color: #00ffc412;
+  padding: 16px;
+  background-color: #f6f6f6;
   border-radius: 4px;
+  @include flex-gap(16px);
+
 }
 
 .mark {
@@ -12,10 +16,18 @@
 }
 
 .text {
-  margin-left: 16px;
-  font-size: 18px;
-  font-weight: 600;
+  display: flex;
+  align-items: center;
+  color: #00b387;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 28px;
+  @include flex-gap(8px);
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .timer {
