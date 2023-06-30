@@ -12,8 +12,16 @@
   }
 }
 
-.active {
-  color: #00ffc4;
+.mark {
+  transition: opacity 300ms ease;
+
+  &.active {
+    color: #00ffc4;
+  }
+}
+
+.pending {
+  opacity: 0.5;
 }
 
 .row-base {
@@ -40,7 +48,7 @@
   pointer-events: none;
 
   &.line--primary {
-    --line-bg-color: #00ffc4
+    --line-bg-color: #00ffc4;
   }
 
   // diagonal type \

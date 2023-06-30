@@ -13,6 +13,7 @@ type GameFieldProps = BaseComponentProps & {
 }
 
 export function GameField({ game }: GameFieldProps) {
+  const { countdown } = useGame()
   const { pending } = usePending()
   const board = game.board.cells
   const field: IFieldCell[] = []
@@ -32,18 +33,25 @@ export function GameField({ game }: GameFieldProps) {
     : false
 
   return (
-    <div className={styles.grid}>
+    <div className={clsx(styles.grid, pending && styles.pending)}>
       {field.map((f, i) => (
         <GameCell
           key={i}
-          disabled={Boolean(f.cell || winnerRow) || pending}
+          disabled={
+            Boolean(f.cell || winnerRow?.length) ||
+            !countdown?.isActive ||
+            pending
+          }
           value={f}
           game={game}
         >
           {f.cell && (
             <GameMark
               mark={f.cell}
-              className={clsx(f.cell === game.playerMark && styles.active)}
+              className={clsx(
+                styles.mark,
+                f.cell === game.playerMark && styles.active
+              )}
             />
           )}
         </GameCell>

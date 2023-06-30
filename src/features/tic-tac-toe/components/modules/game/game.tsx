@@ -67,8 +67,8 @@ export function Game({ game }: GameProps) {
             </>
           ) : (
             <p>
-              Players take turns making their moves. Make sure to complete your
-              turn before the timer runs out.
+              Players take turns making their moves. <br /> Make sure to
+              complete your turn before the timer runs out.
             </p>
           )}
         </HelpDescription>
