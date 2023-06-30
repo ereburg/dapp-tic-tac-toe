@@ -7,13 +7,11 @@ import { ADDRESS } from '@/app/consts'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { accountFTBalanceAtom } from '@/features/tic-tac-toe/consts'
 import { IFTLogic, IFTMain, IFTStorage } from '@/features/tic-tac-toe/types'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import {
   getAccountBalanceById,
   getFTStorageIdByAccount,
 } from '@/features/tic-tac-toe/utils'
-
-const programId = ADDRESS.FT
 
 export function useAccountFTBalance() {
   const setBalance = useSetAtom(accountFTBalanceAtom)
@@ -27,33 +25,44 @@ export function useAccountFTBalance() {
 export function useInitAccountFTBalance() {
   const { setBalance } = useAccountFTBalance()
   const { account } = useAccount()
-  const ref = useRef<boolean>(false)
 
-  const stateMain = useReadState<IFTMain>({
-    programId,
+  const {
+    state: stateMain,
+    error: errorMain,
+    isStateRead: readMain,
+  } = useReadState<IFTMain>({
+    programId: ADDRESS.FT,
     meta,
-  }).state
-  const stateLogic = useReadState<IFTLogic>({
+  })
+  const {
+    state: stateLogic,
+    error: errorLogic,
+    isStateRead: readLogic,
+  } = useReadState<IFTLogic>({
     programId: stateMain?.ftLogicId,
     meta: metaFTLogic,
-  }).state
-  const stateStorage = useReadState<IFTStorage>({
+  })
+  const {
+    state: stateStorage,
+    error: errorStorage,
+    isStateRead: readStorage,
+  } = useReadState<IFTStorage>({
     programId: getFTStorageIdByAccount({ stateLogic, account }),
     meta: metaFTStorage,
-  }).state
-
-  // console.log({ stateMain, stateLogic, stateStorage })
+  })
 
   const amount = getAccountBalanceById({ account, stateStorage })
 
   useEffect(() => {
     setBalance(amount)
-    if (!ref.current) ref.current = true
 
     return () => {
       setBalance(0)
     }
   }, [amount])
 
-  return ref.current
+  return {
+    isFTReady: readMain && readLogic && readStorage,
+    errorFT: errorMain || errorStorage || errorLogic,
+  }
 }

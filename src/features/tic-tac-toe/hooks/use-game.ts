@@ -64,7 +64,7 @@ export function useGame() {
 
 export const useInitGame = () => {
   const { account } = useAccount()
-  const { state } = useReadState<IGameState>({
+  const { state, error } = useReadState<IGameState>({
     programId: programIdGame,
     meta: metaTxt,
   })
@@ -74,7 +74,6 @@ export const useInitGame = () => {
   useEffect(() => {
     if (programIdGame && account) {
       setContractState(state)
-      // console.log(state)
 
       if (state && state.instances.length > 0) {
         const currentPlayer = state.players.find(
@@ -87,10 +86,6 @@ export const useInitGame = () => {
           if (lastGameId) {
             const game = state.instances[lastGameId]
             setGameState({ ...game, id: lastGameId })
-            // console.log('game: ', {
-            //   ...game,
-            //   id: lastGameId,
-            // })
 
             setCountdown((prev) => {
               const isNew = prev?.value !== game.lastTime
@@ -121,7 +116,10 @@ export const useInitGame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account, state])
 
-  return programIdGame ? Boolean(state) : true
+  return {
+    isGameReady: programIdGame ? Boolean(state) : true,
+    errorGame: error,
+  }
 }
 
 export function useGameMessage() {
