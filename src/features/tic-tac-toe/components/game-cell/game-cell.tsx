@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import styles from './game-cell.module.scss'
 import { variantsGameMark } from '../../variants'
-import { IFieldCell, IPlayerGame } from '../../types'
+import type { IFieldCell, IPlayerGame } from '../../types'
 import { useGameMessage, usePending } from '../../hooks'
 import clsx from 'clsx'
 

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import styles from './game-info-player-mark.module.scss'
 import { GameMark } from '../game-mark'
-import { Mark } from '../../types'
+import type { Mark } from '../../types'
 import { variantsPlayerMark } from '../../variants'
 
 type GameSelectedFigureProps = BaseComponentProps & {

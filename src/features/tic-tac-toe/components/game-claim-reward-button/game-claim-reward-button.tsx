@@ -1,17 +1,19 @@
-import { Button } from '@/components/ui/button'
-import { useAccount } from '@gear-js/react-hooks'
 import { useGameMessage, usePending } from '../../hooks'
+import { Button } from '@/components/ui/button'
+import type { IPlayerGame } from '../../types'
 import { useState } from 'react'
 
-type GameStartButtonProps = BaseComponentProps & {}
+type GameClaimRewardButtonProps = BaseComponentProps & {
+  game: IPlayerGame
+}
 
-export function GameStartButton({ children }: GameStartButtonProps) {
-  const { account } = useAccount()
+export function GameClaimRewardButton({
+  children,
+  game,
+}: GameClaimRewardButtonProps) {
   const message = useGameMessage()
   const { pending, setPending } = usePending()
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const seed = Math.floor(Math.random() * 10 ** 10)
 
   const onError = () => {
     setPending(false)
@@ -25,14 +27,16 @@ export function GameStartButton({ children }: GameStartButtonProps) {
   const onGameStart = () => {
     setIsLoading(true)
     setPending(true)
-    message(
-      { StartGame: { seed, name: account?.meta.name } },
-      { onError, onSuccess }
-    )
+    message({ ClaimRewards: { game_id: game.id } }, { onError, onSuccess })
   }
 
   return (
-    <Button onClick={onGameStart} disabled={pending} isLoading={isLoading}>
+    <Button
+      onClick={onGameStart}
+      disabled={pending}
+      isLoading={isLoading}
+      variant="black"
+    >
       {children}
     </Button>
   )

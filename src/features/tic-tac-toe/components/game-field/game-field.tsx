@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import styles from './game-field.module.scss'
 import { GameCell } from '../game-cell'
-import { IFieldCell, IPlayerGame } from '../../types'
+import type { IFieldCell, IPlayerGame } from '../../types'
 import { GameMark } from '../game-mark'
 import { useGame, usePending } from '../../hooks'
 import { calculateWinner } from '../../utils'

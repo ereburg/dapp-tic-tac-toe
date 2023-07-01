@@ -73,6 +73,7 @@ export const useInitGame = () => {
             const game = state.instances[lastGameId]
             setGameState({ ...game, id: lastGameId })
 
+            console.log({ game })
             setCountdown((prev) => {
               const isNew = prev?.value !== game.lastTime
 

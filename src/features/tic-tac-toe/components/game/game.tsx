@@ -3,12 +3,13 @@ import { GradientTitle, HelpDescription } from '../ui/typography'
 import styles from './game.module.scss'
 import { GameField } from '../game-field'
 import { GameInfoPlayerMark } from '../game-info-player-mark'
-import { IPlayerGame } from '../../types'
+import type { IPlayerGame } from '../../types'
 import { GameCountdown } from '../game-countdown'
 import { GameTurnButton } from '../game-turn-button'
 import { GameStartButton } from '../game-start-button'
 import { GameReward } from '../game-reward'
 import { getGameStatus } from '../../utils'
+import { GameClaimRewardButton } from '@/features/tic-tac-toe/components/game-claim-reward-button'
 
 type GameProps = BaseComponentProps & {
   game: IPlayerGame
@@ -64,7 +65,7 @@ export function Game({ game }: GameProps) {
           )}
         </HelpDescription>
 
-        {gameEndStatus === 'win' && <GameReward amount={game.winnerPoints} />}
+        {gameEndStatus === 'win' && <GameReward amount={game.points} />}
 
         {!isGameFinished ? (
           <>
@@ -72,7 +73,14 @@ export function Game({ game }: GameProps) {
             <GameTurnButton game={game} />
           </>
         ) : (
-          <GameStartButton>Play again</GameStartButton>
+          <div className={styles.winner}>
+            <GameStartButton>Play again</GameStartButton>
+            {!game.isClaimed && (
+              <GameClaimRewardButton game={game}>
+                Claim rewards
+              </GameClaimRewardButton>
+            )}
+          </div>
         )}
       </ColumnLeft>
       <ColumnRight className={styles.field}>

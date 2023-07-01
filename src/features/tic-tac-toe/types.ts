@@ -20,6 +20,7 @@ export interface IGameInstance {
   board: IBoard
   botMark: Mark
   finishTime: string | null
+  isClaimed: boolean
   isRewarded: boolean
   lastTime: string
   player: HexString
@@ -27,7 +28,7 @@ export interface IGameInstance {
   rand: { seed: string }
   startTime: string
   status: IGameStatus
-  winnerPoints: number | null
+  points: number | null
 }
 
 export interface IPlayerGame extends IGameInstance {

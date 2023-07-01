@@ -18,6 +18,7 @@
   transition-duration: 300ms;
   transition-timing-function: ease;
   @include flex-gap(10px);
+  white-space: nowrap;
 
   &[disabled] {
     pointer-events: auto;

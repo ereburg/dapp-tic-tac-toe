@@ -1,6 +1,6 @@
 import styles from './game-countdown.module.scss'
 import { GameMark } from '../game-mark'
-import { Mark } from '../../types'
+import type { Mark } from '../../types'
 import { withoutCommas } from '@gear-js/react-hooks'
 import Countdown, { CountdownRenderProps } from 'react-countdown'
 import { useGame } from '../../hooks'

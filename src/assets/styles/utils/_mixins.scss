@@ -58,15 +58,11 @@
     }
   }
 
-  > * {
-    margin: $gap-half;
-  }
+  @include gap($gap-half, right);
 
   @supports selector(:first-child) {
     gap: $gap;
 
-    > * {
-      margin: 0;
-    }
+    @include gap(0, right);
   }
 }
