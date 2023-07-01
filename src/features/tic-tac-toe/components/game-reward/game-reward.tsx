@@ -1,5 +1,5 @@
 import styles from './game-reward.module.scss'
-import { GameRewardIcon } from '@/features/tic-tac-toe/assets'
+import { GameRewardIcon } from '../../assets'
 import { AccountBalanceSftItem } from '@/features/account-balance-sft'
 import clsx from 'clsx'
 

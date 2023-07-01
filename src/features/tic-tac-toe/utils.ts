@@ -1,10 +1,4 @@
-import {
-  Cell,
-  IGameState,
-  IGameStatus,
-  IPlayerGame,
-  Mark,
-} from '@/features/tic-tac-toe/types'
+import { Cell, IGameState, IGameStatus, IPlayerGame, Mark } from './types'
 import { Account } from '@gear-js/react-hooks'
 
 export const getPlayerGames = (state: IGameState, account: Account) => {

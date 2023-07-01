@@ -1,5 +1,5 @@
 import { Account } from '@gear-js/react-hooks'
-import { AccountBalanceGasIcon } from '@/features/account-balance-gas/assets/images'
+import { AccountBalanceGasIcon } from '../../assets/images'
 import styles from './account-balance-gas-item.module.scss'
 import clsx from 'clsx'
 

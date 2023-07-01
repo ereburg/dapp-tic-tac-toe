@@ -3,10 +3,10 @@ import styles from './game-field.module.scss'
 import { GameCell } from '../game-cell'
 import { IFieldCell, IPlayerGame } from '../../types'
 import { GameMark } from '../game-mark'
-import { useGame, usePending } from '@/features/tic-tac-toe/hooks'
-import { calculateWinner } from '@/features/tic-tac-toe/utils'
+import { useGame, usePending } from '../../hooks'
+import { calculateWinner } from '../../utils'
 import { motion } from 'framer-motion'
-import { variantsGameMark } from '@/features/tic-tac-toe/variants'
+import { variantsGameMark } from '../../variants'
 
 type GameFieldProps = BaseComponentProps & {
   game: IPlayerGame

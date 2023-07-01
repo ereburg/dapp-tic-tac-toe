@@ -2,10 +2,8 @@ import Identicon from '@polkadot/react-identicon'
 import { decodeAddress } from '@gear-js/api'
 import { useAccount, useAlert } from '@gear-js/react-hooks'
 import { Button } from '@gear-js/ui'
-import { ReactComponent as EditSVG } from '@/assets/images/icons/edit.svg'
-import { ReactComponent as CopySVG } from '@/assets/images/icons/copy.svg'
 import { Button as VaraButton } from '@/components/ui/button'
-import { ExitSVG } from '../../assets'
+import { CopyIcon, EditIcon, ExitIcon } from '../../assets'
 import { WALLETS } from '../../consts'
 import { useWallet } from '../../hooks'
 import { WalletItem } from '../wallet-item'
@@ -99,7 +97,7 @@ function WalletModal({ onClose }: Props) {
           </VaraButton>
 
           <Button
-            icon={CopySVG}
+            icon={CopyIcon}
             color="transparent"
             onClick={handleCopyClick}
           />
@@ -127,12 +125,12 @@ function WalletModal({ onClose }: Props) {
           >
             <WalletItem icon={wallet.SVG} name={wallet.name} />
 
-            <EditSVG />
+            <EditIcon />
           </button>
 
           {account && (
             <Button
-              icon={ExitSVG}
+              icon={ExitIcon}
               text="Exit"
               color="transparent"
               className={styles.logoutButton}

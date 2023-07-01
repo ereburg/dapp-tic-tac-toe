@@ -1,8 +1,8 @@
-import { ReactNode, useEffect, useRef, MouseEvent } from 'react'
-import { ReactComponent as CrossSVG } from '@/assets/images/icons/cross.svg'
+import { MouseEvent, ReactNode, useEffect, useRef } from 'react'
 import { Button } from '@gear-js/ui'
 import { motion, Variants } from 'framer-motion'
 import styles from './Modal.module.scss'
+import { CrossIcon } from '@/assets/images'
 
 export const variantsOverlay: Variants = {
   enter: { opacity: 0 },
@@ -99,7 +99,7 @@ export function Modal({ heading, children, onClose }: Props) {
         <header className={styles.header}>
           <h2 className={styles.header__title}>{heading}</h2>
 
-          <Button icon={CrossSVG} color="transparent" onClick={onClose} />
+          <Button icon={CrossIcon} color="transparent" onClick={onClose} />
         </header>
 
         {children}

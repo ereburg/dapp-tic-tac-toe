@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import { ReactComponent as SVG } from '@/assets/images/vara-logo.svg'
 import clsx from 'clsx'
 import styles from './logo.module.scss'
+import { VaraLogoIcon } from '@/assets/images'
 
 export function Logo({ className }: BaseComponentProps) {
   return (
     <Link to="/" className={clsx(styles.link, className)}>
-      <SVG className={styles.logo} />
+      <VaraLogoIcon className={styles.logo} />
     </Link>
   )
 }

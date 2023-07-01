@@ -1,0 +1,7 @@
+export { ReactComponent as CrossIcon } from './icons/cross.svg'
+export { ReactComponent as GearIcon } from './icons/gear.svg'
+export { ReactComponent as TwitterIcon } from './icons/twitter.svg'
+export { ReactComponent as GithubIcon } from './icons/github.svg'
+export { ReactComponent as DiscordIcon } from './icons/discord.svg'
+export { ReactComponent as MediumIcon } from './icons/medium.svg'
+export { ReactComponent as VaraLogoIcon } from './icons/vara-logo.svg'

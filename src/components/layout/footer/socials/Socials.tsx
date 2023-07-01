@@ -1,15 +1,17 @@
-import { ReactComponent as Twitter } from '@/assets/images/socials/twitter.svg'
-import { ReactComponent as Github } from '@/assets/images/socials/github.svg'
-import { ReactComponent as Discord } from '@/assets/images/socials/discord.svg'
-import { ReactComponent as Medium } from '@/assets/images/socials/medium.svg'
 import clsx from 'clsx'
 import styles from './Socials.module.scss'
+import {
+  DiscordIcon,
+  GithubIcon,
+  MediumIcon,
+  TwitterIcon,
+} from '@/assets/images'
 
 const socials = [
-  { href: 'https://twitter.com/gear_techs', icon: Twitter },
-  { href: 'https://github.com/gear-tech', icon: Github },
-  { href: 'https://discord.com/invite/7BQznC9uD9', icon: Discord },
-  { href: 'https://medium.com/@gear_techs', icon: Medium },
+  { href: 'https://twitter.com/gear_techs', icon: TwitterIcon },
+  { href: 'https://github.com/gear-tech', icon: GithubIcon },
+  { href: 'https://discord.com/invite/7BQznC9uD9', icon: DiscordIcon },
+  { href: 'https://medium.com/@gear_techs', icon: MediumIcon },
 ]
 
 export function Socials({ className }: BaseComponentProps) {

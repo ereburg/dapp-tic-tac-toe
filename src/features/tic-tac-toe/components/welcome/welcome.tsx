@@ -1,5 +1,5 @@
-import WelcomePNG from '../assets/images/welcome-bg.png'
-import WelcomeWebp from '../assets/images/welcome-bg.webp'
+import WelcomePNG from '../../assets/images/welcome-bg.png'
+import WelcomeWebp from '../../assets/images/welcome-bg.webp'
 import { useAccount } from '@gear-js/react-hooks'
 import { ColumnLeft, ColumnRight, ColumnsContainer } from '../ui/columns'
 import { GradientTitle, HelpDescription } from '../ui/typography'
