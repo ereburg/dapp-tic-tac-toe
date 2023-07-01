@@ -1,16 +1,16 @@
-import { Wallet } from '@/features/wallet'
 import clsx from 'clsx'
 import styles from './account-info.module.scss'
-import { AccountGasBalance } from '../account-gas-balance'
-import { AccountTokensBalance } from '../account-tokens-balance'
+import { AccountBalanceGas } from '@/features/account-balance-gas'
+import { AccountBalanceSft } from '@/features/account-balance-sft'
+import { Wallet } from '@/features/wallet'
 
 type AccountInfoProps = BaseComponentProps & {}
 
 export function AccountInfo({ className }: AccountInfoProps) {
   return (
     <div className={clsx(styles.wrapper, className)}>
-      <AccountTokensBalance />
-      <AccountGasBalance />
+      <AccountBalanceSft />
+      <AccountBalanceGas />
       <Wallet />
     </div>
   )

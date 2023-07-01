@@ -1,24 +1,11 @@
-import { MessagesDispatched } from '@gear-js/api'
-import { HexString } from '@polkadot/util/types'
 import {
   Cell,
-  IFTLogic,
-  IFTStorage,
   IGameState,
+  IGameStatus,
   IPlayerGame,
+  Mark,
 } from '@/features/tic-tac-toe/types'
 import { Account } from '@gear-js/react-hooks'
-
-export const handleStateChange = (
-  { data }: MessagesDispatched,
-  programId: HexString,
-  onChange: () => void
-) => {
-  const changedIDs = data.stateChanges.toHuman() as HexString[]
-  const isAnyChange = changedIDs.some((id) => id === programId)
-
-  if (isAnyChange) onChange()
-}
 
 export const getPlayerGames = (state: IGameState, account: Account) => {
   const playerGames: IPlayerGame[] = []
@@ -61,37 +48,12 @@ export function calculateWinner(squares: Cell[]) {
   return null
 }
 
-export const getFTStorageIdByAccount = ({
-  stateLogic,
-  account,
-}: {
-  stateLogic?: IFTLogic
-  account: Account
-}) => {
-  if (stateLogic && stateLogic.idToStorage.length > 0 && account) {
-    for (let i = 0; i < stateLogic.idToStorage.length; i++) {
-      const id = stateLogic.idToStorage[i]
-      if (id[0] === account.decodedAddress.charAt(2)) {
-        return id[1] as HexString
-      }
-    }
+export function getGameStatus(status: IGameStatus, playerMark: Mark) {
+  if (typeof status !== 'string') {
+    const winnerMark = status.Finished.winner
+    if (!winnerMark) return 'draw'
+    if (winnerMark === playerMark) return 'win'
+    return 'lose'
   }
   return undefined
-}
-
-export const getAccountBalanceById = ({
-  stateStorage,
-  account,
-}: {
-  stateStorage?: IFTStorage
-  account: Account
-}) => {
-  if (stateStorage) {
-    for (const a of stateStorage.balances) {
-      if (a[0] === account?.decodedAddress) {
-        return a[1] as number
-      }
-    }
-  }
-  return 0
 }

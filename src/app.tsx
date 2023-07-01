@@ -1,11 +1,11 @@
 import './app.scss'
-import { useApi, useAccount } from '@gear-js/react-hooks'
+import { useAccount, useApi } from '@gear-js/react-hooks'
 import { Routing } from './pages'
 import { ApiLoader, Loader } from '@/components'
 import { Footer, Header } from '@/components/layout'
 import { withProviders } from '@/app/hocs'
-import { useInitGame } from '@/features/tic-tac-toe/hooks/use-game'
-import { useInitAccountFTBalance } from '@/features/tic-tac-toe/hooks/use-ft-balance'
+import { useInitGame } from '@/features/tic-tac-toe/hooks'
+import { useInitAccountFTBalance } from '@/features/account-balance-sft/hooks'
 import { LoadingError } from '@/components/loaders/loading-error'
 
 function Component() {
@@ -18,7 +18,6 @@ function Component() {
   const isUserReady = isGameReady && isFTReady
   const hasError = errorFT || errorGame
 
-  console.log({ hasError, isUserReady, isAppReady })
   return (
     <>
       <Header />
