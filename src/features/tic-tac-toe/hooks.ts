@@ -10,12 +10,12 @@ import {
   gameAtom,
   pendingAtom,
 } from './store'
-import { ADDRESS } from '@/app/consts'
+import { ADDRESS } from './consts'
 import { useProgramMetadata } from '@/app/hooks'
 import { getPlayerGames } from './utils'
 import { useReadState } from '@/app/hooks/api'
 
-const programIdGame = ADDRESS.CONTRACT
+const programIdGame = ADDRESS.GAME
 
 export function useGame() {
   const setContractState = useSetAtom(contractAtom)

@@ -1,5 +1,3 @@
-import { HexString } from '@polkadot/util/types'
-
 export const LOCAL_STORAGE = {
   ACCOUNT: 'account',
   WALLET: 'wallet',
@@ -7,6 +5,4 @@ export const LOCAL_STORAGE = {
 
 export const ADDRESS = {
   NODE: import.meta.env.VITE_NODE_ADDRESS,
-  CONTRACT: import.meta.env.VITE_GAME_ADDRESS as HexString,
-  FT: import.meta.env.VITE_FT_ADDRESS as HexString,
 }

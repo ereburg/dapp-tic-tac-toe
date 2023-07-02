@@ -4,11 +4,11 @@ import metaFTStorage from './assets/meta/ft_storage.meta.txt'
 import { useEffect } from 'react'
 import { useAtomValue, useSetAtom } from 'jotai'
 import { useAccount } from '@gear-js/react-hooks'
-import { ADDRESS } from '@/app/consts'
 import { useReadState } from '@/app/hooks/api'
 import { accountFTBalanceAtom } from './store'
 import { IFTLogic, IFTMain, IFTStorage } from './types'
 import { getAccountBalanceById, getFTStorageIdByAccount } from './utils'
+import { ADDRESS } from './consts'
 
 export function useAccountFTBalance() {
   const setBalance = useSetAtom(accountFTBalanceAtom)
@@ -28,7 +28,7 @@ export function useInitAccountFTBalance() {
     error: errorMain,
     isStateRead: readMain,
   } = useReadState<IFTMain>({
-    programId: ADDRESS.FT,
+    programId: ADDRESS.SFT,
     meta,
   })
   const {
