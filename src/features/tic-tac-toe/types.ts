@@ -28,7 +28,7 @@ export interface IGameInstance {
   rand: { seed: string }
   startTime: string
   status: IGameStatus
-  points: number | null
+  points: string | null
 }
 
 export interface IPlayerGame extends IGameInstance {

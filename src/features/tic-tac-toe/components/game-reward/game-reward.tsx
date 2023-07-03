@@ -1,10 +1,10 @@
 import styles from './game-reward.module.scss'
 import { GameRewardIcon } from '../../assets'
-import { AccountBalanceSftItem } from '@/features/account-balance-sft'
 import clsx from 'clsx'
+import { PointsBalance } from '@/components/ui/balance'
 
 type GameRewardProps = BaseComponentProps & {
-  amount: number | null
+  amount: string | null
 }
 
 export function GameReward({ children, amount }: GameRewardProps) {
@@ -13,7 +13,7 @@ export function GameReward({ children, amount }: GameRewardProps) {
       <div className={styles.text}>
         <GameRewardIcon /> Your rewards:
       </div>
-      <AccountBalanceSftItem amount={amount || 0} className={styles.balance} />
+      <PointsBalance value={amount || '0'} className={styles.balance} />
     </div>
   )
 }

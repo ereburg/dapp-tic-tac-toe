@@ -1,3 +1,3 @@
 import { atom } from 'jotai'
 
-export const accountFTBalanceAtom = atom<number>(0)
+export const accountFTBalanceAtom = atom<string>('0')

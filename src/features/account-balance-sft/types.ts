@@ -18,7 +18,7 @@ export type IFTLogic = {
 
 export type IFTStorage = {
   approvals: []
-  balances: Array<[HexString, number]>
+  balances: Array<[HexString, string]>
   ftLogicId: HexString
   transactionStatus: []
 }
