@@ -1,0 +1,24 @@
+@use '../assets/styles/utils' as *;
+
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  @include flex-gap(60px);
+  width: 100%;
+}
+
+.header {
+  flex: 400px 0 1;
+  @include gap(24px);
+}
+
+.subheadings {
+  @include gap(16px);
+}
+
+.content {
+  flex: 740px 1 1;
+}

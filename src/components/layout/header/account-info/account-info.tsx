@@ -5,7 +5,7 @@ import { useAccount } from '@gear-js/react-hooks'
 import {
   useAccountFTBalance,
   useInitAccountFTBalance,
-} from '@/features/account-balance-sft/hooks'
+} from '@/features/account-sft-balance/hooks'
 import { PointsBalance, VaraBalance } from '@/components/ui/balance'
 
 type AccountInfoProps = BaseComponentProps & {}
@@ -23,7 +23,11 @@ function AccountPointsBalance() {
 function AccountVaraBalance() {
   const { account } = useAccount()
   return account ? (
-    <VaraBalance value={account.balance.value} unit={account.balance.unit} />
+    <VaraBalance
+      value={account.balance.value}
+      unit={account.balance.unit}
+      className={styles.vara}
+    />
   ) : null
 }
 

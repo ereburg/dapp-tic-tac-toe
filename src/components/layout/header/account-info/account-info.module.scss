@@ -5,3 +5,10 @@
   align-items: center;
   @include flex-gap(20px)
 }
+
+.vara {
+  b {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}

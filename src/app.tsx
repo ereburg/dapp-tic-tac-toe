@@ -5,7 +5,7 @@ import { ApiLoader, Loader } from '@/components'
 import { Footer, Header } from '@/components/layout'
 import { withProviders } from '@/app/hocs'
 import { useInitGame } from '@/features/tic-tac-toe/hooks'
-import { useInitAccountFTBalance } from '@/features/account-balance-sft/hooks'
+import { useInitAccountFTBalance } from '@/features/account-sft-balance/hooks'
 import { LoadingError } from '@/components/loaders/loading-error'
 
 function Component() {

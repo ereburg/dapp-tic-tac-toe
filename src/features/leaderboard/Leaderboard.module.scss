@@ -1,0 +1,101 @@
+@use '@/assets/styles/utils' as *;
+
+.leaderboard {
+  @include gap(20px);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .heading {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .input {
+    max-width: 300px;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  color: #202020;
+  white-space: nowrap;
+
+  &Header {
+    color: #fff;
+    background-color: #000;
+
+    th {
+      padding: 10px 20px;
+      font-weight: inherit;
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid #f5f5f5;
+
+    &:not(:nth-child(-n + 3)) {
+      background-color: #fafafa;
+    }
+  }
+
+  td {
+    padding: 14px 20px;
+  }
+}
+
+.nameCell {
+  @include textOverflow;
+  max-width: 200px;
+
+  .name {
+    font-weight: 600;
+  }
+}
+
+.rank {
+  @include circle(24px);
+  @include flexCenter;
+  font-weight: 600;
+
+  &.gold {
+    background-color: #f9dc93;
+  }
+
+  &.silver {
+    background-color: #dae2eb;
+  }
+
+  &.bronze {
+    background-color: #ffbaa4;
+  }
+}
+
+.footer {
+  @include gap(32px, right);
+  padding: 0 20px;
+  display: flex;
+  justify-content: flex-end;
+
+  .leftButton {
+    transform: rotate(180deg);
+  }
+
+  .text {
+    @include gap(16px, right);
+    font-size: 16px;
+
+    .pageNumber {
+      font-weight: 600;
+    }
+
+    .pagesCount {
+      color: rgba(#202020, 0.4);
+    }
+  }
+}
