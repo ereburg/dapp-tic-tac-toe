@@ -5,7 +5,7 @@ import { useAccount } from '@gear-js/react-hooks'
 import {
   useAccountFTBalance,
   useInitAccountFTBalance,
-} from '@/features/account-sft-balance/hooks'
+} from '@/features/points-balance/hooks'
 import { PointsBalance, VaraBalance } from '@/components/ui/balance'
 
 type AccountInfoProps = BaseComponentProps & {}
