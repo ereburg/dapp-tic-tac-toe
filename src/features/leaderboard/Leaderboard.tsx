@@ -17,7 +17,7 @@ const initialValues = { searchQuery: '' }
 
 export function Leaderboard() {
   const state = useLeaderboardState()
-  console.log({ state })
+  // console.log({ state })
   const participants = useMemo(() => getParticipants(state || {}), [state])
   const participantsCount = participants.length
 
